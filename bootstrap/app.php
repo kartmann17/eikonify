@@ -10,6 +10,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Inertia\Inertia;
 
@@ -21,6 +22,17 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Trust all proxies (Nginx reverse proxy in production)
+        // This is required for proper HTTPS detection and secure cookie handling
+        $middleware->trustProxies(
+            at: '*',
+            headers: Request::HEADER_X_FORWARDED_FOR |
+                     Request::HEADER_X_FORWARDED_HOST |
+                     Request::HEADER_X_FORWARDED_PORT |
+                     Request::HEADER_X_FORWARDED_PROTO |
+                     Request::HEADER_X_FORWARDED_PREFIX
+        );
+
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
         // Exclude OptiSEO API routes from CSRF verification (public API)
