@@ -23,6 +23,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->encryptCookies(except: ['appearance', 'sidebar_state']);
 
+        // Exclude OptiSEO API routes from CSRF verification (public API)
+        $middleware->validateCsrfTokens(except: [
+            'api/optiseo/*',
+        ]);
+
         // Enable stateful API for session-based authentication on API routes
         $middleware->statefulApi();
 
