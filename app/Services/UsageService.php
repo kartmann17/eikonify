@@ -24,6 +24,17 @@ class UsageService
      */
     public function canUseAI(Request $request, int $imageCount = 1): array
     {
+        // Check for authenticated Pro user (session-based)
+        $user = $request->user();
+        if ($user && $user->isPro()) {
+            return [
+                'allowed' => true,
+                'plan' => 'pro',
+                'remaining' => null,
+                'in_quota' => true,
+            ];
+        }
+
         // Check for API key (Pro users)
         $apiKey = $this->getApiKeyFromRequest($request);
 
@@ -40,6 +51,12 @@ class UsageService
      */
     public function recordUsage(Request $request, int $imageCount = 1): void
     {
+        // Pro user via session - no tracking needed (handled by Cashier/metered billing)
+        $user = $request->user();
+        if ($user && $user->isPro()) {
+            return;
+        }
+
         $apiKey = $this->getApiKeyFromRequest($request);
 
         if ($apiKey) {
@@ -59,6 +76,19 @@ class UsageService
      */
     public function getUsageInfo(Request $request): array
     {
+        // Pro user via session
+        $user = $request->user();
+        if ($user && $user->isPro()) {
+            $quota = config('optiseo.plans.pro.monthly_quota', 500);
+            return [
+                'plan' => 'pro',
+                'remaining' => $quota,
+                'used' => 0,
+                'quota' => $quota,
+                'allows_overage' => true,
+            ];
+        }
+
         $apiKey = $this->getApiKeyFromRequest($request);
 
         if ($apiKey) {
