@@ -1,0 +1,53 @@
+{
+    "name": "Eikonify - Convertisseur d'images WebP/AVIF avec SEO",
+    "short_name": "Eikonify",
+    "description": "Convertissez vos images en WebP et AVIF avec optimisation SEO automatique par IA. Noms de fichiers, alt text et title générés automatiquement.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#6366f1",
+    "orientation": "portrait-primary",
+    "scope": "/",
+    "lang": "fr-FR",
+    "dir": "ltr",
+    "categories": ["utilities", "productivity", "photo"],
+    "icons": [
+        {
+            "src": "/images/eikonify-icon-light.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/images/eikonify-icon-light.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/images/eikonify-social-banner.png",
+            "sizes": "1200x630",
+            "type": "image/png",
+            "form_factor": "wide",
+            "label": "Eikonify - Interface de conversion d'images"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Convertir des images",
+            "short_name": "Convertir",
+            "description": "Convertir des images en WebP/AVIF",
+            "url": "/",
+            "icons": [
+                {
+                    "src": "/images/eikonify-icon-light.png",
+                    "sizes": "192x192"
+                }
+            ]
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false
+}
