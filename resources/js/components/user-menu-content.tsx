@@ -9,7 +9,6 @@ import {
 import { UserInfo } from '@/components/user-info';
 import { useMobileNavigation } from '@/hooks/use-mobile-navigation';
 import type { User } from '@/types';
-import { logout } from '@/routes';
 import { edit } from '@/routes/profile';
 
 type Props = {
@@ -19,9 +18,16 @@ type Props = {
 export function UserMenuContent({ user }: Props) {
     const cleanup = useMobileNavigation();
 
-    const handleLogout = () => {
+    const handleLogout = (e: React.MouseEvent) => {
+        e.preventDefault();
         cleanup();
-        router.flushAll();
+
+        router.post('/logout', {}, {
+            onSuccess: () => {
+                router.flushAll();
+                window.location.href = '/';
+            },
+        });
     };
 
     return (
@@ -41,22 +47,20 @@ export function UserMenuContent({ user }: Props) {
                         onClick={cleanup}
                     >
                         <Settings className="mr-2" />
-                        Settings
+                        Paramètres
                     </Link>
                 </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-                <Link
-                    className="block w-full cursor-pointer"
-                    href={logout()}
-                    as="button"
+                <button
+                    className="flex w-full cursor-pointer items-center"
                     onClick={handleLogout}
                     data-test="logout-button"
                 >
                     <LogOut className="mr-2" />
-                    Log out
-                </Link>
+                    Déconnexion
+                </button>
             </DropdownMenuItem>
         </>
     );
