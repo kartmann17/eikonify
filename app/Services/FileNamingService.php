@@ -8,6 +8,7 @@ class FileNamingService
 {
     /**
      * Generate a SEO-friendly filename from keywords.
+     * Keywords are rotated/varied for each image to avoid repetitive names.
      */
     public function generateSeoFilename(array $keywords, int $index = 0, string $extension = 'webp'): string
     {
@@ -15,21 +16,106 @@ class FileNamingService
             return 'image-' . ($index + 1) . '.' . $extension;
         }
 
-        // Slugify and join keywords
+        // Slugify keywords
         $slugParts = array_map(fn ($keyword) => $this->slugify($keyword), $keywords);
-        $slug = implode(config('optiseo.filename.separator', '-'), $slugParts);
+        $slugParts = array_filter($slugParts); // Remove empty slugs
+
+        if (empty($slugParts)) {
+            return 'image-' . ($index + 1) . '.' . $extension;
+        }
+
+        // Reindex array
+        $slugParts = array_values($slugParts);
+
+        // Generate varied keyword order based on index
+        $variedParts = $this->getVariedKeywordOrder($slugParts, $index);
+
+        $slug = implode(config('optiseo.filename.separator', '-'), $variedParts);
 
         // Truncate to max length
         $maxLength = config('optiseo.filename.max_length', 80);
-        $slug = $this->truncate($slug, $maxLength - strlen((string) ($index + 1)) - 1);
-
-        // Add index suffix if multiple images
-        if ($index > 0) {
-            $suffix = str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT);
-            $slug .= '-' . $suffix;
-        }
+        $slug = $this->truncate($slug, $maxLength);
 
         return $slug . '.' . $extension;
+    }
+
+    /**
+     * Get a varied keyword order based on the image index.
+     * Creates unique combinations by rotating and reordering keywords.
+     */
+    protected function getVariedKeywordOrder(array $keywords, int $index): array
+    {
+        $count = count($keywords);
+
+        // First image: original order
+        if ($index === 0) {
+            return $keywords;
+        }
+
+        // For single keyword, add descriptive suffixes
+        if ($count === 1) {
+            $suffixes = ['photo', 'image', 'visuel', 'illustration', 'apercu', 'vue', 'detail', 'presentation'];
+            $suffixIndex = ($index - 1) % count($suffixes);
+            return [$keywords[0], $suffixes[$suffixIndex]];
+        }
+
+        // For 2 keywords: alternate between orders and add variations
+        if ($count === 2) {
+            $variations = [
+                [$keywords[0], $keywords[1]], // 0: original
+                [$keywords[1], $keywords[0]], // 1: reversed
+                [$keywords[0], $keywords[1], 'photo'], // 2
+                [$keywords[1], $keywords[0], 'image'], // 3
+                [$keywords[0], 'visuel', $keywords[1]], // 4
+                [$keywords[1], 'apercu', $keywords[0]], // 5
+            ];
+            return $variations[$index % count($variations)];
+        }
+
+        // For 3+ keywords: use rotation, reversal, and shuffling patterns
+        $variationIndex = $index % ($count * 3); // More variations available
+
+        // Pattern 1: Rotate keywords (shift start position)
+        if ($variationIndex < $count) {
+            $rotated = $keywords;
+            for ($i = 0; $i < $variationIndex; $i++) {
+                $first = array_shift($rotated);
+                $rotated[] = $first;
+            }
+            return $rotated;
+        }
+
+        // Pattern 2: Rotate + reverse
+        if ($variationIndex < $count * 2) {
+            $rotateBy = $variationIndex - $count;
+            $rotated = $keywords;
+            for ($i = 0; $i < $rotateBy; $i++) {
+                $first = array_shift($rotated);
+                $rotated[] = $first;
+            }
+            return array_reverse($rotated);
+        }
+
+        // Pattern 3: Interleave (odd/even positions swap)
+        $rotateBy = $variationIndex - ($count * 2);
+        $rotated = $keywords;
+        for ($i = 0; $i < $rotateBy; $i++) {
+            $first = array_shift($rotated);
+            $rotated[] = $first;
+        }
+
+        // Swap pairs
+        $result = [];
+        for ($i = 0; $i < count($rotated); $i += 2) {
+            if (isset($rotated[$i + 1])) {
+                $result[] = $rotated[$i + 1];
+                $result[] = $rotated[$i];
+            } else {
+                $result[] = $rotated[$i];
+            }
+        }
+
+        return $result;
     }
 
     /**
