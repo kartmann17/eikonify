@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Storage;
 
 class VisionAnalysisService
 {
-    protected string $model = 'claude-3-5-haiku-20241022';
+    protected string $model = 'claude-3-haiku-20240307';
 
-    // Claude 3.5 Haiku pricing (per 1M tokens)
-    protected const INPUT_PRICE_PER_MILLION = 0.80;   // $0.80 / 1M input tokens
-    protected const OUTPUT_PRICE_PER_MILLION = 4.00;  // $4.00 / 1M output tokens
+    // Claude 3 Haiku pricing (per 1M tokens)
+    protected const INPUT_PRICE_PER_MILLION = 0.25;   // $0.25 / 1M input tokens
+    protected const OUTPUT_PRICE_PER_MILLION = 1.25;  // $1.25 / 1M output tokens
 
     /**
      * Analyze an image and generate SEO metadata.
@@ -58,7 +58,12 @@ class VisionAnalysisService
 
             return $this->parseResponse($response->content[0]->text);
         } catch (\Exception $e) {
-            Log::error('Vision analysis failed: ' . $e->getMessage());
+            Log::error('Vision analysis failed', [
+                'message' => $e->getMessage(),
+                'code' => $e->getCode(),
+                'class' => get_class($e),
+                'trace' => $e->getTraceAsString(),
+            ]);
 
             return $this->getFallbackMetadata($keywords);
         }
