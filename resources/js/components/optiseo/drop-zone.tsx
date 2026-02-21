@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { CloudUpload, Image, X } from 'lucide-react';
 import { useCallback, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface DropZoneProps {
     onFilesAdded: (files: File[]) => void;
@@ -23,6 +24,7 @@ export function DropZone({
     disabled = false,
     className,
 }: DropZoneProps) {
+    const { t } = useTranslation();
     const [isDragging, setIsDragging] = useState(false);
 
     const handleDragEnter = useCallback((e: React.DragEvent) => {
@@ -105,11 +107,11 @@ export function DropZone({
                 </div>
 
                 <h3 className="mb-2 text-lg font-semibold">
-                    {isDragging ? 'Déposez vos images ici' : 'Glissez-déposez vos images'}
+                    {isDragging ? t('home.dropzone.titleDragging') : t('home.dropzone.title')}
                 </h3>
 
                 <p className="mb-4 text-sm text-muted-foreground">
-                    ou cliquez pour sélectionner des fichiers
+                    {t('home.dropzone.subtitle')}
                 </p>
 
                 <div className="flex flex-wrap justify-center gap-2 text-xs text-muted-foreground">
@@ -117,10 +119,10 @@ export function DropZone({
                         {acceptedFormats.map(f => f.replace('.', '').toUpperCase()).join(', ')}
                     </span>
                     <span className="rounded-full bg-muted px-2 py-1">
-                        Max {maxFiles} fichiers
+                        {t('home.dropzone.maxFiles', { count: maxFiles })}
                     </span>
                     <span className="rounded-full bg-muted px-2 py-1">
-                        Max {formatMaxSize()} par fichier
+                        {t('home.dropzone.maxSizePerFile', { size: maxFileSizeMb })}
                     </span>
                 </div>
             </div>

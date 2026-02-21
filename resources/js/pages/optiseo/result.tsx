@@ -1,7 +1,8 @@
 import { router, usePage } from '@inertiajs/react';
 import { useState, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { SeoHead, SEO_CONFIGS } from '@/components/seo-head';
+import { SeoHead } from '@/components/seo-head';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ExportPanel, ImageCard, CodeGeneratorPanel, PerformancePanel, PlaceholderPreview, SchemaPreview, FaviconPanel } from '@/components/optiseo';
@@ -16,6 +17,7 @@ interface ResultPageProps {
 }
 
 export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps) {
+    const { t } = useTranslation();
     const { batch, pollProgress } = useConversion();
     const { auth } = usePage<{ auth?: Auth }>().props;
     const isPro = auth?.isPro ?? false;
@@ -44,7 +46,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
             <div className="flex min-h-screen items-center justify-center">
                 <div className="text-center">
                     <RefreshCw className="mx-auto h-8 w-8 animate-spin text-muted-foreground" />
-                    <p className="mt-4 text-muted-foreground">Chargement des résultats...</p>
+                    <p className="mt-4 text-muted-foreground">{t('result.loading')}</p>
                 </div>
             </div>
         );
@@ -58,7 +60,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
 
     return (
         <>
-            <SeoHead {...SEO_CONFIGS.result} />
+            <SeoHead page="result" noindex />
 
             <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
                 <div className="container mx-auto px-4 py-8">
@@ -66,11 +68,11 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                     <div className="mb-6 flex items-center justify-between">
                         <Button variant="ghost" onClick={handleGoBack}>
                             <ArrowLeft className="mr-2 h-4 w-4" />
-                            Paramètres
+                            {t('result.backToSettings')}
                         </Button>
                         <Button variant="outline" onClick={handleStartNew}>
                             <Home className="mr-2 h-4 w-4" />
-                            Nouvelle conversion
+                            {t('result.newConversion')}
                         </Button>
                     </div>
 
@@ -78,10 +80,10 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                         {/* Header */}
                         <div className="text-center">
                             <h1 className="mb-2 text-3xl font-bold">
-                                Conversion terminée !
+                                {t('result.title')}
                             </h1>
                             <p className="text-muted-foreground">
-                                {completedImages.length} image{completedImages.length > 1 ? 's' : ''} convertie{completedImages.length > 1 ? 's' : ''} avec succès
+                                {t('result.subtitle', { count: completedImages.length })}
                             </p>
                         </div>
 
@@ -90,23 +92,23 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                             <TabsList className="grid w-full grid-cols-5">
                                 <TabsTrigger value="export" className="gap-2">
                                     <Download className="h-4 w-4" />
-                                    <span className="hidden sm:inline">Télécharger</span>
+                                    <span className="hidden sm:inline">{t('result.tabs.download')}</span>
                                 </TabsTrigger>
                                 <TabsTrigger value="seo" className="gap-2">
                                     <FileText className="h-4 w-4" />
-                                    <span className="hidden sm:inline">SEO</span>
+                                    <span className="hidden sm:inline">{t('result.tabs.seo')}</span>
                                 </TabsTrigger>
                                 <TabsTrigger value="code" className="gap-2">
                                     <Code2 className="h-4 w-4" />
-                                    <span className="hidden sm:inline">Code</span>
+                                    <span className="hidden sm:inline">{t('result.tabs.code')}</span>
                                 </TabsTrigger>
                                 <TabsTrigger value="favicons" className="gap-2">
                                     <ImageIcon className="h-4 w-4" />
-                                    <span className="hidden sm:inline">Favicons</span>
+                                    <span className="hidden sm:inline">{t('result.tabs.favicons')}</span>
                                 </TabsTrigger>
                                 <TabsTrigger value="performance" className="gap-2">
                                     <Gauge className="h-4 w-4" />
-                                    <span className="hidden sm:inline">Performance</span>
+                                    <span className="hidden sm:inline">{t('result.tabs.performance')}</span>
                                 </TabsTrigger>
                             </TabsList>
 
@@ -118,7 +120,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                                 {completedImages.length > 0 && (
                                     <Card>
                                         <CardHeader>
-                                            <CardTitle>Images converties</CardTitle>
+                                            <CardTitle>{t('result.convertedImages')}</CardTitle>
                                         </CardHeader>
                                         <CardContent>
                                             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
@@ -138,7 +140,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                                     <Card className="border-destructive/50">
                                         <CardHeader>
                                             <CardTitle className="text-destructive">
-                                                Images en échec ({failedImages.length})
+                                                {t('result.failedImages', { count: failedImages.length })}
                                             </CardTitle>
                                         </CardHeader>
                                         <CardContent>
@@ -163,7 +165,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                                         {completedImages.length > 1 && (
                                             <Card>
                                                 <CardHeader>
-                                                    <CardTitle className="text-base">Sélectionnez une image</CardTitle>
+                                                    <CardTitle className="text-base">{t('result.selectImage')}</CardTitle>
                                                 </CardHeader>
                                                 <CardContent>
                                                     <div className="flex flex-wrap gap-2">
@@ -192,7 +194,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                                         {/* SEO Metadata */}
                                         <Card>
                                             <CardHeader>
-                                                <CardTitle>Métadonnées SEO générées</CardTitle>
+                                                <CardTitle>{t('result.seoGenerated')}</CardTitle>
                                             </CardHeader>
                                             <CardContent>
                                                 {displayImage && (
@@ -237,7 +239,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                                         {completedImages.length > 1 && (
                                             <Card>
                                                 <CardHeader>
-                                                    <CardTitle className="text-base">Sélectionnez une image</CardTitle>
+                                                    <CardTitle className="text-base">{t('result.selectImage')}</CardTitle>
                                                 </CardHeader>
                                                 <CardContent>
                                                     <div className="flex flex-wrap gap-2">
@@ -279,7 +281,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                                         {completedImages.length > 1 && (
                                             <Card>
                                                 <CardHeader>
-                                                    <CardTitle className="text-base">Sélectionnez une image</CardTitle>
+                                                    <CardTitle className="text-base">{t('result.selectImage')}</CardTitle>
                                                 </CardHeader>
                                                 <CardContent>
                                                     <div className="flex flex-wrap gap-2">
@@ -321,7 +323,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                                         {completedImages.length > 1 && (
                                             <Card>
                                                 <CardHeader>
-                                                    <CardTitle className="text-base">Sélectionnez une image</CardTitle>
+                                                    <CardTitle className="text-base">{t('result.selectImage')}</CardTitle>
                                                 </CardHeader>
                                                 <CardContent>
                                                     <div className="flex flex-wrap gap-2">
@@ -365,7 +367,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                         <div className="text-center">
                             <Button size="lg" onClick={handleStartNew} className="gap-2">
                                 <RefreshCw className="h-5 w-5" />
-                                Convertir d'autres images
+                                {t('result.convertMore')}
                             </Button>
                         </div>
                     </div>

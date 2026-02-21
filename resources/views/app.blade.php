@@ -16,11 +16,13 @@
         {{-- Canonical URL --}}
         <link rel="canonical" href="{{ url()->current() }}">
 
-        {{-- Language & Region --}}
-        <meta name="language" content="French">
+        {{-- Language & Region - Multilingual SEO --}}
         <meta name="geo.region" content="FR">
         <meta name="geo.placename" content="France">
-        <link rel="alternate" hreflang="fr" href="{{ url()->current() }}">
+        {{-- Hreflang tags for all supported languages (fr, en, es) --}}
+        <link rel="alternate" hreflang="fr" href="{{ url()->current() }}?lang=fr">
+        <link rel="alternate" hreflang="en" href="{{ url()->current() }}?lang=en">
+        <link rel="alternate" hreflang="es" href="{{ url()->current() }}?lang=es">
         <link rel="alternate" hreflang="x-default" href="{{ url()->current() }}">
 
         {{-- Mobile & PWA --}}

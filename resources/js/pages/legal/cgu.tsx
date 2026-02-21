@@ -1,10 +1,13 @@
+import { useTranslation } from 'react-i18next';
 import LegalLayout from '@/layouts/legal-layout';
 
 export default function CGU() {
+    const { t } = useTranslation();
+
     return (
-        <LegalLayout title="Conditions Generales d'Utilisation">
+        <LegalLayout title={t('legal.cgu.title')}>
             <p className="text-sm text-muted-foreground mb-8">
-                Derniere mise a jour : {new Date().toLocaleDateString('fr-FR')}
+                {t('legal.lastUpdated')} : {new Date().toLocaleDateString('fr-FR')}
             </p>
 
             <section className="mb-8">

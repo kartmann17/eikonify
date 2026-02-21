@@ -68,10 +68,13 @@
             }
         },
         "dropzone": {
-            "title": "Glissez vos images ici",
-            "subtitle": "ou cliquez pour sélectionner",
+            "title": "Glissez-déposez vos images",
+            "titleDragging": "Déposez vos images ici",
+            "subtitle": "ou cliquez pour sélectionner des fichiers",
             "formats": "PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP",
-            "maxSize": "Max {{size}} MB par fichier"
+            "maxSize": "Max {{size}} Mo par fichier",
+            "maxFiles": "Max {{count}} fichiers",
+            "maxSizePerFile": "Max {{size}} Mo par fichier"
         },
         "features": {
             "conversion": "Conversion WebP/AVIF",
@@ -122,6 +125,7 @@
     },
     "convert": {
         "title": "Paramètres de conversion",
+        "subtitle": "Configurez les options de conversion et lancez le traitement",
         "format": "Format de sortie",
         "quality": "Qualité",
         "qualityHint": "Plus la qualité est élevée, plus le fichier est lourd",
@@ -130,16 +134,23 @@
         "maintainRatio": "Conserver les proportions",
         "keywords": "Mots-clés SEO",
         "keywordsPlaceholder": "Ex: chaussures, running, sport",
-        "keywordsHint": "Ajoutez des mots-clés pour optimiser les noms de fichiers et le SEO",
+        "keywordsHint": "Modifiez ou ajoutez des mots-clés pour la génération SEO",
         "generateFavicons": "Générer les favicons & icônes app",
         "removeBackground": "Supprimer l'arrière-plan",
         "startConversion": "Lancer la conversion",
         "converting": "Conversion en cours...",
-        "imagesSelected": "{{count}} image(s) sélectionnée(s)"
+        "imagesSelected": "{{count}} image(s) sélectionnée(s)",
+        "imagesToConvert": "{{count}} image(s) à convertir",
+        "progress": "Progression",
+        "others": "+{{count}} autres",
+        "settingsTitle": "Paramètres de conversion",
+        "settingsSubtitle": "Choisissez le format, la qualité et les dimensions",
+        "viewResults": "Voir les résultats"
     },
     "result": {
         "title": "Conversion terminée !",
         "subtitle": "{{count}} image(s) convertie(s) avec succès",
+        "loading": "Chargement des résultats...",
         "tabs": {
             "download": "Télécharger",
             "seo": "SEO",
@@ -150,7 +161,11 @@
         "downloadAll": "Télécharger tout (ZIP)",
         "selectImage": "Sélectionnez une image",
         "newConversion": "Nouvelle conversion",
-        "backToSettings": "Paramètres"
+        "backToSettings": "Paramètres",
+        "convertedImages": "Images converties",
+        "failedImages": "Images en échec ({{count}})",
+        "seoGenerated": "Métadonnées SEO générées",
+        "convertMore": "Convertir d'autres images"
     },
     "pricing": {
         "title": "Tarifs simples et transparents",
@@ -309,5 +324,182 @@
         "invalidFile": "Fichier invalide",
         "fileTooLarge": "Fichier trop volumineux",
         "conversionFailed": "Échec de la conversion"
+    },
+    "legal": {
+        "lastUpdated": "Dernière mise à jour",
+        "frenchOnly": "",
+        "cgu": {
+            "title": "Conditions Générales d'Utilisation"
+        },
+        "cgv": {
+            "title": "Conditions Générales de Vente"
+        },
+        "mentions": {
+            "title": "Mentions légales"
+        },
+        "privacy": {
+            "title": "Politique de Confidentialité",
+            "manageCookies": "Gérer mes préférences cookies"
+        }
+    },
+    "dashboard": {
+        "title": "Mon espace",
+        "backToHome": "Retour à l'accueil",
+        "quota": {
+            "title": "Quotas mensuels",
+            "descriptionPro": "Votre consommation ce mois-ci",
+            "descriptionFree": "Passez au plan Pro pour plus de fonctionnalités",
+            "imageConversions": "Conversions d'images",
+            "bgRemovals": "Suppressions d'arrière-plan",
+            "exceeded": "Quota dépassé ! Surplus de {{count}} images ({{cost}})",
+            "warning": "Vous avez utilisé plus de 80% de votre quota mensuel.",
+            "nextRenewal": "Prochain renouvellement",
+            "days": "{{count}} jours",
+            "freePlanInfo": "Avec le plan gratuit : 5 images/jour et 3 suppressions d'arrière-plan/jour.",
+            "upgradeToPro": "Passer au Pro"
+        },
+        "subscription": {
+            "title": "Abonnement",
+            "description": "Gérez votre abonnement et vos moyens de paiement",
+            "currentPlan": "Plan actuel",
+            "status": "Statut",
+            "active": "Actif",
+            "canceling": "Annulation en cours",
+            "canceled": "Annulé",
+            "pastDue": "Paiement en retard",
+            "subscribedSince": "Abonné depuis",
+            "nextRenewal": "Prochain renouvellement",
+            "endsAt": "Fin d'abonnement",
+            "card": "Carte",
+            "manage": "Gérer",
+            "resume": "Reprendre",
+            "cancelSubscription": "Annuler",
+            "cancelTitle": "Annuler l'abonnement",
+            "cancelDescription": "Êtes-vous sûr de vouloir annuler votre abonnement Pro ? Vous conserverez l'accès jusqu'à la fin de la période de facturation.",
+            "keepSubscription": "Conserver",
+            "confirmCancel": "Confirmer l'annulation",
+            "canceling_": "Annulation...",
+            "upgradePrice": "Passer au Pro (9,99 €/mois)"
+        },
+        "history": {
+            "title": "Historique des conversions",
+            "description": "Vos 20 dernières conversions",
+            "empty": "Aucune conversion pour le moment.",
+            "images": "{{count}} image",
+            "images_plural": "{{count}} images"
+        },
+        "invoices": {
+            "title": "Factures",
+            "description": "Vos factures et reçus de paiement",
+            "empty": "Aucune facture disponible.",
+            "paid": "Payée",
+            "pending": "En attente"
+        }
+    },
+    "settings": {
+        "profile": {
+            "title": "Informations du profil",
+            "description": "Mettez à jour votre nom et votre adresse email",
+            "name": "Nom",
+            "email": "Email",
+            "emailNotVerified": "Votre adresse email n'est pas vérifiée.",
+            "updated": "Profil mis à jour.",
+            "save": "Enregistrer"
+        },
+        "deleteAccount": {
+            "title": "Supprimer le compte",
+            "description": "Supprimez définitivement votre compte et toutes vos données",
+            "button": "Supprimer mon compte",
+            "confirmTitle": "Êtes-vous sûr ?",
+            "confirmDescription": "Cette action est irréversible. Toutes vos données seront supprimées.",
+            "password": "Mot de passe",
+            "passwordPlaceholder": "Entrez votre mot de passe pour confirmer",
+            "cancel": "Annuler",
+            "confirm": "Supprimer"
+        },
+        "password": {
+            "title": "Changer le mot de passe",
+            "description": "Assurez-vous d'utiliser un mot de passe long et aléatoire",
+            "currentPassword": "Mot de passe actuel",
+            "newPassword": "Nouveau mot de passe",
+            "confirmPassword": "Confirmer le mot de passe",
+            "updated": "Mot de passe mis à jour.",
+            "submit": "Changer le mot de passe"
+        },
+        "appearance": {
+            "title": "Apparence",
+            "description": "Personnalisez l'apparence de l'application"
+        },
+        "twoFactor": {
+            "title": "Authentification à deux facteurs",
+            "description": "Ajoutez une couche de sécurité supplémentaire à votre compte",
+            "enabled": "L'authentification à deux facteurs est activée.",
+            "disabled": "L'authentification à deux facteurs n'est pas activée.",
+            "scanQr": "Scannez ce QR code avec votre application d'authentification (Google Authenticator, Authy, etc.)",
+            "confirmCode": "Code de confirmation",
+            "confirm": "Confirmer",
+            "recoveryCodes": "Conservez ces codes de récupération dans un endroit sûr. Ils vous permettront de récupérer l'accès à votre compte si vous perdez votre appareil.",
+            "disable": "Désactiver",
+            "enable": "Activer"
+        }
+    },
+    "seo": {
+        "siteName": "Eikonify",
+        "locale": "fr_FR",
+        "home": {
+            "title": "Eikonify - Convertisseur d'images WebP/AVIF avec SEO automatique",
+            "description": "Convertissez vos images en WebP et AVIF gratuitement. Optimisation SEO automatique par IA : noms de fichiers, alt text et title générés. Suppression d'arrière-plan incluse.",
+            "keywords": "convertir image webp, convertir image avif, convertisseur image en ligne, optimisation seo image, alt text automatique, convertisseur image gratuit, compression image webp, supprimer arrière-plan"
+        },
+        "pricing": {
+            "title": "Tarifs - Eikonify Pro",
+            "description": "Découvrez le plan Pro Eikonify à 9,99€/mois : 500 images/mois, suppression d'arrière-plan illimitée, suggestions IA personnalisées, export complet.",
+            "keywords": "eikonify pro, tarif convertisseur image, abonnement image optimizer, prix webp converter, plan pro image"
+        },
+        "convert": {
+            "title": "Paramètres de conversion - Eikonify",
+            "description": "Configurez les paramètres de conversion de vos images : format WebP ou AVIF, qualité, dimensions. Ajoutez vos mots-clés SEO pour une optimisation automatique."
+        },
+        "result": {
+            "title": "Résultats de conversion - Eikonify",
+            "description": "Téléchargez vos images converties en WebP/AVIF avec leurs métadonnées SEO. Export disponible en ZIP, CSV, JSON ou HTML."
+        },
+        "dashboard": {
+            "title": "Tableau de bord - Eikonify",
+            "description": "Gérez vos conversions d'images, votre abonnement et vos quotas mensuels."
+        },
+        "settings": {
+            "title": "Paramètres - Eikonify",
+            "description": "Gérez votre profil, sécurité et préférences de compte."
+        },
+        "legal": {
+            "title": "Informations légales - Eikonify",
+            "description": "Mentions légales, conditions d'utilisation et politique de confidentialité d'Eikonify."
+        }
+    },
+    "bgRemoval": {
+        "title": "Suppression d'arrière-plan",
+        "subtitle": "Supprimez l'arrière-plan de vos images en un clic",
+        "remaining": "{{remaining}}/{{quota}} restant{{plural}} {{period}}",
+        "remainingToday": "aujourd'hui",
+        "remainingMonth": "ce mois",
+        "quotaDaily": "Quota journalier atteint",
+        "quotaMonthly": "Quota mensuel atteint",
+        "quotaResetPro": "Votre quota sera réinitialisé le mois prochain.",
+        "quotaUpgrade": "Passez au plan Pro pour 500 suppressions par mois.",
+        "dropInstruction": "Glissez une image ou cliquez pour sélectionner",
+        "dropFormats": "PNG, JPG, WebP jusqu'à 25 Mo",
+        "original": "Original",
+        "noBackground": "Sans arrière-plan",
+        "loadingModel": "Chargement du modèle IA...",
+        "analyzing": "Analyse de l'image...",
+        "finalizing": "Finalisation...",
+        "compareInstruction": "Faites glisser le curseur pour comparer",
+        "cancel": "Annuler",
+        "processing": "Traitement...",
+        "removeBackground": "Supprimer l'arrière-plan",
+        "newImage": "Nouvelle image",
+        "downloadPng": "Télécharger PNG",
+        "success": "Arrière-plan supprimé avec succès"
     }
 }

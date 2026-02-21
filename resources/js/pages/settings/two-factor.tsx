@@ -1,5 +1,6 @@
 import { Head, useForm, router } from '@inertiajs/react';
 import { FormEventHandler, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { Button } from '@/components/ui/button';
@@ -11,11 +12,6 @@ import { LoaderCircle, Shield, ShieldCheck, ShieldOff } from 'lucide-react';
 import type { BreadcrumbItem } from '@/types';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Settings', href: '/settings/profile' },
-    { title: 'Two-Factor Auth', href: '/settings/two-factor' },
-];
-
 export default function TwoFactor({
     twoFactorEnabled,
     requiresConfirmation,
@@ -23,6 +19,13 @@ export default function TwoFactor({
     twoFactorEnabled: boolean;
     requiresConfirmation: boolean;
 }) {
+    const { t } = useTranslation();
+
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: t('nav.settings'), href: '/settings/profile' },
+        { title: t('settings.twoFactor.title'), href: '/settings/two-factor' },
+    ];
+
     const [enabling, setEnabling] = useState(false);
     const [disabling, setDisabling] = useState(false);
     const [qrCode, setQrCode] = useState<string | null>(null);
@@ -76,27 +79,27 @@ export default function TwoFactor({
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Two-Factor Authentication" />
+            <Head title={t('settings.twoFactor.title')} />
 
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Authentification à deux facteurs"
-                        description="Ajoutez une couche de sécurité supplémentaire à votre compte"
+                        title={t('settings.twoFactor.title')}
+                        description={t('settings.twoFactor.description')}
                     />
 
                     {twoFactorEnabled ? (
                         <Alert className="border-green-200 bg-green-50">
                             <ShieldCheck className="h-4 w-4 text-green-600" />
                             <AlertDescription className="text-green-800">
-                                L'authentification à deux facteurs est activée.
+                                {t('settings.twoFactor.enabled')}
                             </AlertDescription>
                         </Alert>
                     ) : (
                         <Alert>
                             <ShieldOff className="h-4 w-4" />
                             <AlertDescription>
-                                L'authentification à deux facteurs n'est pas activée.
+                                {t('settings.twoFactor.disabled')}
                             </AlertDescription>
                         </Alert>
                     )}
@@ -104,7 +107,7 @@ export default function TwoFactor({
                     {qrCode && !twoFactorEnabled && (
                         <div className="space-y-4">
                             <p className="text-sm text-muted-foreground">
-                                Scannez ce QR code avec votre application d'authentification (Google Authenticator, Authy, etc.)
+                                {t('settings.twoFactor.scanQr')}
                             </p>
                             <div
                                 className="inline-block bg-white p-4 rounded-lg"
@@ -114,7 +117,7 @@ export default function TwoFactor({
                             {requiresConfirmation && (
                                 <form onSubmit={confirmTwoFactor} className="space-y-4">
                                     <div className="grid gap-2 max-w-xs">
-                                        <Label htmlFor="code">Code de confirmation</Label>
+                                        <Label htmlFor="code">{t('settings.twoFactor.confirmCode')}</Label>
                                         <Input
                                             id="code"
                                             value={data.code}
@@ -126,7 +129,7 @@ export default function TwoFactor({
                                     </div>
                                     <Button type="submit" disabled={processing}>
                                         {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-                                        Confirmer
+                                        {t('settings.twoFactor.confirm')}
                                     </Button>
                                 </form>
                             )}
@@ -136,7 +139,7 @@ export default function TwoFactor({
                     {recoveryCodes.length > 0 && (
                         <div className="space-y-4">
                             <p className="text-sm text-muted-foreground">
-                                Conservez ces codes de récupération dans un endroit sûr. Ils vous permettront de récupérer l'accès à votre compte si vous perdez votre appareil.
+                                {t('settings.twoFactor.recoveryCodes')}
                             </p>
                             <div className="bg-muted p-4 rounded-lg font-mono text-sm">
                                 {recoveryCodes.map((code, i) => (
@@ -150,13 +153,13 @@ export default function TwoFactor({
                         {twoFactorEnabled ? (
                             <Button variant="destructive" onClick={disableTwoFactor} disabled={disabling}>
                                 {disabling && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-                                Désactiver
+                                {t('settings.twoFactor.disable')}
                             </Button>
                         ) : (
                             <Button onClick={enableTwoFactor} disabled={enabling}>
                                 {enabling && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
                                 <Shield className="mr-2 h-4 w-4" />
-                                Activer
+                                {t('settings.twoFactor.enable')}
                             </Button>
                         )}
                     </div>

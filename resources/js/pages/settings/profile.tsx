@@ -1,5 +1,6 @@
 import { Head, useForm, usePage } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import { useTranslation } from 'react-i18next';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { Button } from '@/components/ui/button';
@@ -21,11 +22,6 @@ import {
     AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Settings', href: '/settings/profile' },
-    { title: 'Profile', href: '/settings/profile' },
-];
-
 type ProfileForm = {
     name: string;
     email: string;
@@ -36,8 +32,14 @@ type DeleteForm = {
 };
 
 export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: boolean; status?: string }) {
+    const { t } = useTranslation();
     const { auth } = usePage<{ auth: Auth }>().props;
     const user = auth.user;
+
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: t('nav.settings'), href: '/settings/profile' },
+        { title: t('nav.profile'), href: '/settings/profile' },
+    ];
 
     const { data, setData, patch, processing, errors } = useForm<ProfileForm>({
         name: user.name,
@@ -74,13 +76,13 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Informations du profil"
-                        description="Mettez à jour votre nom et votre adresse email"
+                        title={t('settings.profile.title')}
+                        description={t('settings.profile.description')}
                     />
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="name">Nom</Label>
+                            <Label htmlFor="name">{t('settings.profile.name')}</Label>
                             <Input
                                 id="name"
                                 value={data.name}
@@ -91,7 +93,7 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">{t('settings.profile.email')}</Label>
                             <Input
                                 id="email"
                                 type="email"
@@ -104,61 +106,61 @@ export default function Profile({ mustVerifyEmail, status }: { mustVerifyEmail: 
 
                         {mustVerifyEmail && user.email_verified_at === null && (
                             <div className="text-sm text-muted-foreground">
-                                Votre adresse email n'est pas vérifiée.
+                                {t('settings.profile.emailNotVerified')}
                             </div>
                         )}
 
                         {status === 'profile-updated' && (
-                            <p className="text-sm text-green-600">Profil mis à jour.</p>
+                            <p className="text-sm text-green-600">{t('settings.profile.updated')}</p>
                         )}
 
                         <Button type="submit" disabled={processing}>
                             {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-                            Enregistrer
+                            {t('settings.profile.save')}
                         </Button>
                     </form>
                 </div>
 
                 <div className="space-y-6 pt-6 border-t">
                     <HeadingSmall
-                        title="Supprimer le compte"
-                        description="Supprimez définitivement votre compte et toutes vos données"
+                        title={t('settings.deleteAccount.title')}
+                        description={t('settings.deleteAccount.description')}
                     />
 
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
-                            <Button variant="destructive">Supprimer mon compte</Button>
+                            <Button variant="destructive">{t('settings.deleteAccount.button')}</Button>
                         </AlertDialogTrigger>
                         <AlertDialogContent>
                             <form onSubmit={deleteAccount}>
                                 <AlertDialogHeader>
-                                    <AlertDialogTitle>Êtes-vous sûr ?</AlertDialogTitle>
+                                    <AlertDialogTitle>{t('settings.deleteAccount.confirmTitle')}</AlertDialogTitle>
                                     <AlertDialogDescription>
-                                        Cette action est irréversible. Toutes vos données seront supprimées.
+                                        {t('settings.deleteAccount.confirmDescription')}
                                     </AlertDialogDescription>
                                 </AlertDialogHeader>
 
                                 <div className="my-4 grid gap-2">
-                                    <Label htmlFor="password">Mot de passe</Label>
+                                    <Label htmlFor="password">{t('settings.deleteAccount.password')}</Label>
                                     <Input
                                         id="password"
                                         type="password"
                                         value={deleteData.password}
                                         onChange={(e) => setDeleteData('password', e.target.value)}
-                                        placeholder="Entrez votre mot de passe pour confirmer"
+                                        placeholder={t('settings.deleteAccount.passwordPlaceholder')}
                                     />
                                     <InputError message={deleteErrors.password} />
                                 </div>
 
                                 <AlertDialogFooter>
-                                    <AlertDialogCancel>Annuler</AlertDialogCancel>
+                                    <AlertDialogCancel>{t('settings.deleteAccount.cancel')}</AlertDialogCancel>
                                     <AlertDialogAction
                                         type="submit"
                                         disabled={deleteProcessing}
                                         className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                                     >
                                         {deleteProcessing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-                                        Supprimer
+                                        {t('settings.deleteAccount.confirm')}
                                     </AlertDialogAction>
                                 </AlertDialogFooter>
                             </form>

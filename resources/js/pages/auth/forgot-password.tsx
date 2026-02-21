@@ -1,5 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import { useTranslation } from 'react-i18next';
 import AuthLayout from '@/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -8,6 +9,7 @@ import InputError from '@/components/input-error';
 import { LoaderCircle } from 'lucide-react';
 
 export default function ForgotPassword({ status }: { status?: string }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors } = useForm({
         email: '',
     });
@@ -19,10 +21,10 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
     return (
         <AuthLayout
-            title="Mot de passe oublié"
-            description="Entrez votre email pour recevoir un lien de réinitialisation"
+            title={t('auth.forgotPassword.title')}
+            description={t('auth.forgotPassword.description')}
         >
-            <Head title="Mot de passe oublié" />
+            <Head title={t('auth.forgotPassword.title')} />
 
             {status && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
@@ -32,7 +34,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
             <form onSubmit={submit} className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">{t('auth.login.email')}</Label>
                     <Input
                         id="email"
                         type="email"
@@ -48,12 +50,12 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                 <Button type="submit" className="w-full" disabled={processing}>
                     {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-                    Envoyer le lien
+                    {t('auth.forgotPassword.submit')}
                 </Button>
 
                 <div className="text-center text-sm text-muted-foreground">
                     <Link href="/login" className="text-primary hover:underline">
-                        Retour à la connexion
+                        {t('auth.forgotPassword.backToLogin')}
                     </Link>
                 </div>
             </form>

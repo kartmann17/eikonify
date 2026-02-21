@@ -1,14 +1,16 @@
+import { useTranslation } from 'react-i18next';
 import LegalLayout from '@/layouts/legal-layout';
 import { useCookieConsent } from '@/components/cookie-consent';
 import { Button } from '@/components/ui/button';
 
 export default function PrivacyPolicy() {
+    const { t } = useTranslation();
     const { resetConsent } = useCookieConsent();
 
     return (
-        <LegalLayout title="Politique de Confidentialite">
+        <LegalLayout title={t('legal.privacy.title')}>
             <p className="text-sm text-muted-foreground mb-8">
-                Derniere mise a jour : {new Date().toLocaleDateString('fr-FR')}
+                {t('legal.lastUpdated')} : {new Date().toLocaleDateString('fr-FR')}
             </p>
 
             <section className="mb-8">
@@ -167,7 +169,7 @@ export default function PrivacyPolicy() {
                     Vous pouvez a tout moment modifier vos preferences en matiere de cookies :
                 </p>
                 <Button onClick={resetConsent} variant="outline">
-                    Gerer mes preferences cookies
+                    {t('legal.privacy.manageCookies')}
                 </Button>
             </section>
 

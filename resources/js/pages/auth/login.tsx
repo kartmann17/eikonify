@@ -1,5 +1,6 @@
 import { Head, Link, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import { useTranslation } from 'react-i18next';
 import AuthLayout from '@/layouts/auth-layout';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +16,7 @@ type LoginForm = {
 };
 
 export default function Login({ status }: { status?: string }) {
+    const { t } = useTranslation();
     const { data, setData, post, processing, errors, reset } = useForm<LoginForm>({
         email: '',
         password: '',
@@ -29,8 +31,8 @@ export default function Login({ status }: { status?: string }) {
     };
 
     return (
-        <AuthLayout title="Connexion" description="Connectez-vous à votre compte Eikonify">
-            <Head title="Connexion" />
+        <AuthLayout title={t('auth.login.title')} description={t('auth.login.description', 'Connectez-vous à votre compte Eikonify')}>
+            <Head title={t('auth.login.title')} />
 
             {status && (
                 <div className="mb-4 text-center text-sm font-medium text-green-600">
@@ -40,7 +42,7 @@ export default function Login({ status }: { status?: string }) {
 
             <form onSubmit={submit} className="flex flex-col gap-6">
                 <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">{t('auth.login.email')}</Label>
                     <Input
                         id="email"
                         type="email"
@@ -56,12 +58,12 @@ export default function Login({ status }: { status?: string }) {
 
                 <div className="grid gap-2">
                     <div className="flex items-center justify-between">
-                        <Label htmlFor="password">Mot de passe</Label>
+                        <Label htmlFor="password">{t('auth.login.password')}</Label>
                         <Link
                             href="/forgot-password"
                             className="text-sm text-muted-foreground hover:text-primary"
                         >
-                            Mot de passe oublié ?
+                            {t('auth.login.forgotPassword')}
                         </Link>
                     </div>
                     <Input
@@ -83,19 +85,19 @@ export default function Login({ status }: { status?: string }) {
                         onCheckedChange={(checked) => setData('remember', checked as boolean)}
                     />
                     <Label htmlFor="remember" className="text-sm font-normal">
-                        Se souvenir de moi
+                        {t('auth.login.rememberMe')}
                     </Label>
                 </div>
 
                 <Button type="submit" className="w-full" disabled={processing}>
                     {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-                    Se connecter
+                    {t('auth.login.submit')}
                 </Button>
 
                 <div className="text-center text-sm text-muted-foreground">
-                    Pas encore de compte ?{' '}
+                    {t('auth.login.noAccount')}{' '}
                     <Link href="/register" className="text-primary hover:underline">
-                        Créer un compte
+                        {t('auth.login.registerLink')}
                     </Link>
                 </div>
             </form>

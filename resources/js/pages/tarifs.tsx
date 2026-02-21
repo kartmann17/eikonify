@@ -1,7 +1,7 @@
 import { Link, usePage } from '@inertiajs/react';
 import { useTranslation } from 'react-i18next';
 import PublicLayout from '@/layouts/public-layout';
-import { SeoHead, SEO_CONFIGS } from '@/components/seo-head';
+import { SeoHead } from '@/components/seo-head';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -50,7 +50,7 @@ export default function Tarifs() {
 
     return (
         <PublicLayout>
-            <SeoHead {...SEO_CONFIGS.tarifs} keywords={[...SEO_CONFIGS.tarifs.keywords]} />
+            <SeoHead page="pricing" />
 
             <div className="flex flex-col items-center justify-center py-12 px-4">
                 <div className="text-center max-w-2xl mx-auto mb-12">

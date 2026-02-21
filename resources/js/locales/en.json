@@ -68,10 +68,13 @@
             }
         },
         "dropzone": {
-            "title": "Drop your images here",
-            "subtitle": "or click to select",
+            "title": "Drag and drop your images",
+            "titleDragging": "Drop your images here",
+            "subtitle": "or click to select files",
             "formats": "PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP",
-            "maxSize": "Max {{size}} MB per file"
+            "maxSize": "Max {{size}} MB per file",
+            "maxFiles": "Max {{count}} files",
+            "maxSizePerFile": "Max {{size}} MB per file"
         },
         "features": {
             "conversion": "WebP/AVIF conversion",
@@ -122,6 +125,7 @@
     },
     "convert": {
         "title": "Conversion settings",
+        "subtitle": "Configure conversion options and start processing",
         "format": "Output format",
         "quality": "Quality",
         "qualityHint": "Higher quality means larger file size",
@@ -130,16 +134,23 @@
         "maintainRatio": "Maintain aspect ratio",
         "keywords": "SEO keywords",
         "keywordsPlaceholder": "E.g.: shoes, running, sport",
-        "keywordsHint": "Add keywords to optimize file names and SEO",
+        "keywordsHint": "Edit or add keywords for SEO generation",
         "generateFavicons": "Generate favicons & app icons",
         "removeBackground": "Remove background",
         "startConversion": "Start conversion",
         "converting": "Converting...",
-        "imagesSelected": "{{count}} image(s) selected"
+        "imagesSelected": "{{count}} image(s) selected",
+        "imagesToConvert": "{{count}} image(s) to convert",
+        "progress": "Progress",
+        "others": "+{{count}} more",
+        "settingsTitle": "Conversion settings",
+        "settingsSubtitle": "Choose format, quality and dimensions",
+        "viewResults": "View results"
     },
     "result": {
         "title": "Conversion complete!",
         "subtitle": "{{count}} image(s) successfully converted",
+        "loading": "Loading results...",
         "tabs": {
             "download": "Download",
             "seo": "SEO",
@@ -150,7 +161,11 @@
         "downloadAll": "Download all (ZIP)",
         "selectImage": "Select an image",
         "newConversion": "New conversion",
-        "backToSettings": "Settings"
+        "backToSettings": "Settings",
+        "convertedImages": "Converted images",
+        "failedImages": "Failed images ({{count}})",
+        "seoGenerated": "Generated SEO metadata",
+        "convertMore": "Convert more images"
     },
     "pricing": {
         "title": "Simple and transparent pricing",
@@ -309,5 +324,182 @@
         "invalidFile": "Invalid file",
         "fileTooLarge": "File too large",
         "conversionFailed": "Conversion failed"
+    },
+    "legal": {
+        "lastUpdated": "Last updated",
+        "frenchOnly": "This legal document applies to French law and is only available in French.",
+        "cgu": {
+            "title": "Terms of Use"
+        },
+        "cgv": {
+            "title": "Terms of Sale"
+        },
+        "mentions": {
+            "title": "Legal Notice"
+        },
+        "privacy": {
+            "title": "Privacy Policy",
+            "manageCookies": "Manage cookie preferences"
+        }
+    },
+    "dashboard": {
+        "title": "My space",
+        "backToHome": "Back to home",
+        "quota": {
+            "title": "Monthly quotas",
+            "descriptionPro": "Your usage this month",
+            "descriptionFree": "Upgrade to Pro for more features",
+            "imageConversions": "Image conversions",
+            "bgRemovals": "Background removals",
+            "exceeded": "Quota exceeded! Surplus of {{count}} images ({{cost}})",
+            "warning": "You have used more than 80% of your monthly quota.",
+            "nextRenewal": "Next renewal",
+            "days": "{{count}} days",
+            "freePlanInfo": "With the free plan: 5 images/day and 3 background removals/day.",
+            "upgradeToPro": "Upgrade to Pro"
+        },
+        "subscription": {
+            "title": "Subscription",
+            "description": "Manage your subscription and payment methods",
+            "currentPlan": "Current plan",
+            "status": "Status",
+            "active": "Active",
+            "canceling": "Canceling",
+            "canceled": "Canceled",
+            "pastDue": "Past due",
+            "subscribedSince": "Subscribed since",
+            "nextRenewal": "Next renewal",
+            "endsAt": "Ends at",
+            "card": "Card",
+            "manage": "Manage",
+            "resume": "Resume",
+            "cancelSubscription": "Cancel",
+            "cancelTitle": "Cancel subscription",
+            "cancelDescription": "Are you sure you want to cancel your Pro subscription? You will keep access until the end of the billing period.",
+            "keepSubscription": "Keep",
+            "confirmCancel": "Confirm cancellation",
+            "canceling_": "Canceling...",
+            "upgradePrice": "Upgrade to Pro (€9.99/month)"
+        },
+        "history": {
+            "title": "Conversion history",
+            "description": "Your last 20 conversions",
+            "empty": "No conversions yet.",
+            "images": "{{count}} image",
+            "images_plural": "{{count}} images"
+        },
+        "invoices": {
+            "title": "Invoices",
+            "description": "Your invoices and payment receipts",
+            "empty": "No invoices available.",
+            "paid": "Paid",
+            "pending": "Pending"
+        }
+    },
+    "settings": {
+        "profile": {
+            "title": "Profile information",
+            "description": "Update your name and email address",
+            "name": "Name",
+            "email": "Email",
+            "emailNotVerified": "Your email address is not verified.",
+            "updated": "Profile updated.",
+            "save": "Save"
+        },
+        "deleteAccount": {
+            "title": "Delete account",
+            "description": "Permanently delete your account and all your data",
+            "button": "Delete my account",
+            "confirmTitle": "Are you sure?",
+            "confirmDescription": "This action is irreversible. All your data will be deleted.",
+            "password": "Password",
+            "passwordPlaceholder": "Enter your password to confirm",
+            "cancel": "Cancel",
+            "confirm": "Delete"
+        },
+        "password": {
+            "title": "Change password",
+            "description": "Make sure to use a long and random password",
+            "currentPassword": "Current password",
+            "newPassword": "New password",
+            "confirmPassword": "Confirm password",
+            "updated": "Password updated.",
+            "submit": "Change password"
+        },
+        "appearance": {
+            "title": "Appearance",
+            "description": "Customize the application appearance"
+        },
+        "twoFactor": {
+            "title": "Two-factor authentication",
+            "description": "Add an extra layer of security to your account",
+            "enabled": "Two-factor authentication is enabled.",
+            "disabled": "Two-factor authentication is not enabled.",
+            "scanQr": "Scan this QR code with your authenticator app (Google Authenticator, Authy, etc.)",
+            "confirmCode": "Confirmation code",
+            "confirm": "Confirm",
+            "recoveryCodes": "Store these recovery codes in a safe place. They will allow you to recover access to your account if you lose your device.",
+            "disable": "Disable",
+            "enable": "Enable"
+        }
+    },
+    "seo": {
+        "siteName": "Eikonify",
+        "locale": "en_US",
+        "home": {
+            "title": "Eikonify - WebP/AVIF Image Converter with Automatic SEO",
+            "description": "Convert your images to WebP and AVIF for free. Automatic AI-powered SEO optimization: file names, alt text and title generated. Background removal included.",
+            "keywords": "convert image webp, convert image avif, online image converter, image seo optimization, automatic alt text, free image converter, webp image compression, remove background"
+        },
+        "pricing": {
+            "title": "Pricing - Eikonify Pro",
+            "description": "Discover the Eikonify Pro plan at €9.99/month: 500 images/month, unlimited background removal, personalized AI suggestions, full export.",
+            "keywords": "eikonify pro, image converter pricing, image optimizer subscription, webp converter price, pro image plan"
+        },
+        "convert": {
+            "title": "Conversion Settings - Eikonify",
+            "description": "Configure your image conversion settings: WebP or AVIF format, quality, dimensions. Add your SEO keywords for automatic optimization."
+        },
+        "result": {
+            "title": "Conversion Results - Eikonify",
+            "description": "Download your converted WebP/AVIF images with their SEO metadata. Export available in ZIP, CSV, JSON or HTML."
+        },
+        "dashboard": {
+            "title": "Dashboard - Eikonify",
+            "description": "Manage your image conversions, subscription and monthly quotas."
+        },
+        "settings": {
+            "title": "Settings - Eikonify",
+            "description": "Manage your profile, security and account preferences."
+        },
+        "legal": {
+            "title": "Legal Information - Eikonify",
+            "description": "Legal notice, terms of use and privacy policy for Eikonify."
+        }
+    },
+    "bgRemoval": {
+        "title": "Background Removal",
+        "subtitle": "Remove the background from your images in one click",
+        "remaining": "{{remaining}}/{{quota}} remaining {{period}}",
+        "remainingToday": "today",
+        "remainingMonth": "this month",
+        "quotaDaily": "Daily quota reached",
+        "quotaMonthly": "Monthly quota reached",
+        "quotaResetPro": "Your quota will reset next month.",
+        "quotaUpgrade": "Upgrade to Pro for 500 removals per month.",
+        "dropInstruction": "Drag an image or click to select",
+        "dropFormats": "PNG, JPG, WebP up to 25 MB",
+        "original": "Original",
+        "noBackground": "Without background",
+        "loadingModel": "Loading AI model...",
+        "analyzing": "Analyzing image...",
+        "finalizing": "Finalizing...",
+        "compareInstruction": "Drag the slider to compare",
+        "cancel": "Cancel",
+        "processing": "Processing...",
+        "removeBackground": "Remove background",
+        "newImage": "New image",
+        "downloadPng": "Download PNG",
+        "success": "Background removed successfully"
     }
 }

@@ -1,4 +1,5 @@
 import { Head, Link, router } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import AppLayout from '@/layouts/app-layout';
 import type { BreadcrumbItem, DashboardPageProps } from '@/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -32,11 +33,12 @@ import {
 } from '@/components/ui/dialog';
 import { useState } from 'react';
 
-const breadcrumbs: BreadcrumbItem[] = [{ title: 'Dashboard', href: '/dashboard' }];
-
 export default function Dashboard({ quota, subscription, history, invoices }: DashboardPageProps) {
+    const { t } = useTranslation();
     const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const breadcrumbs: BreadcrumbItem[] = [{ title: t('nav.dashboard'), href: '/dashboard' }];
 
     const handleCancel = () => {
         setIsSubmitting(true);
@@ -72,11 +74,11 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
 
             <div className="flex h-full flex-1 flex-col gap-6 p-6">
                 <div className="flex items-center justify-between">
-                    <h1 className="text-2xl font-bold">Mon espace</h1>
+                    <h1 className="text-2xl font-bold">{t('dashboard.title')}</h1>
                     <Link href="/">
                         <Button variant="outline">
                             <ArrowLeft className="mr-2 h-4 w-4" />
-                            Retour a l'accueil
+                            {t('dashboard.backToHome')}
                         </Button>
                     </Link>
                 </div>
@@ -87,12 +89,12 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <TrendingUp className="h-5 w-5" />
-                                Quotas mensuels
+                                {t('dashboard.quota.title')}
                             </CardTitle>
                             <CardDescription>
                                 {quota.plan === 'pro'
-                                    ? 'Votre consommation ce mois-ci'
-                                    : 'Passez au plan Pro pour plus de fonctionnalites'}
+                                    ? t('dashboard.quota.descriptionPro')
+                                    : t('dashboard.quota.descriptionFree')}
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
@@ -102,7 +104,7 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                                     <div className="space-y-2">
                                         <div className="flex items-center gap-2 text-sm font-medium">
                                             <Image className="h-4 w-4" />
-                                            Conversions d'images
+                                            {t('dashboard.quota.imageConversions')}
                                         </div>
                                         <div className="flex items-center justify-between text-sm">
                                             <span>{formatNumber(quota.used)} / {formatNumber(quota.quota)}</span>
@@ -118,7 +120,7 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                                     <div className="space-y-2">
                                         <div className="flex items-center gap-2 text-sm font-medium">
                                             <Scissors className="h-4 w-4" />
-                                            Suppressions d'arriere-plan
+                                            {t('dashboard.quota.bgRemovals')}
                                         </div>
                                         <div className="flex items-center justify-between text-sm">
                                             <span>{formatNumber(quota.bg_used)} / {formatNumber(quota.bg_quota)}</span>
@@ -131,7 +133,7 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                                         <Alert variant="destructive">
                                             <AlertTriangle className="h-4 w-4" />
                                             <AlertDescription>
-                                                Quota depasse ! Surplus de {formatNumber(quota.surplus)} images ({formatCurrency(quota.surplus_cost)})
+                                                {t('dashboard.quota.exceeded', { count: formatNumber(quota.surplus), cost: formatCurrency(quota.surplus_cost) })}
                                             </AlertDescription>
                                         </Alert>
                                     )}
@@ -140,25 +142,25 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                                         <Alert>
                                             <AlertTriangle className="h-4 w-4" />
                                             <AlertDescription>
-                                                Vous avez utilise plus de 80% de votre quota mensuel.
+                                                {t('dashboard.quota.warning')}
                                             </AlertDescription>
                                         </Alert>
                                     )}
 
                                     <div className="flex items-center justify-between text-sm text-muted-foreground border-t pt-4">
-                                        <span>Prochain renouvellement</span>
-                                        <span>{quota.reset_date} ({quota.days_remaining} jours)</span>
+                                        <span>{t('dashboard.quota.nextRenewal')}</span>
+                                        <span>{quota.reset_date} ({t('dashboard.quota.days', { count: quota.days_remaining })})</span>
                                     </div>
                                 </>
                             ) : (
                                 <div className="text-center py-4">
                                     <p className="text-muted-foreground mb-4">
-                                        Avec le plan gratuit : 5 images/jour et 3 suppressions d'arriere-plan/jour.
+                                        {t('dashboard.quota.freePlanInfo')}
                                     </p>
                                     <Link href="/billing">
                                         <Button>
                                             <Package className="mr-2 h-4 w-4" />
-                                            Passer au Pro
+                                            {t('dashboard.quota.upgradeToPro')}
                                         </Button>
                                     </Link>
                                 </div>
@@ -171,24 +173,24 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <CreditCard className="h-5 w-5" />
-                                Abonnement
+                                {t('dashboard.subscription.title')}
                             </CardTitle>
                             <CardDescription>
-                                Gérez votre abonnement et vos moyens de paiement
+                                {t('dashboard.subscription.description')}
                             </CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-4">
                             <div className="flex items-center justify-between">
-                                <span className="text-sm text-muted-foreground">Plan actuel</span>
+                                <span className="text-sm text-muted-foreground">{t('dashboard.subscription.currentPlan')}</span>
                                 <Badge variant={subscription.plan === 'pro' ? 'default' : 'secondary'}>
-                                    {subscription.plan === 'pro' ? 'Pro' : 'Gratuit'}
+                                    {subscription.plan === 'pro' ? t('common.pro') : t('common.free')}
                                 </Badge>
                             </div>
 
                             {subscription.plan === 'pro' && (
                                 <>
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-muted-foreground">Statut</span>
+                                        <span className="text-sm text-muted-foreground">{t('dashboard.subscription.status')}</span>
                                         <Badge
                                             variant={
                                                 subscription.status === 'active'
@@ -198,37 +200,37 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                                                         : 'destructive'
                                             }
                                         >
-                                            {subscription.status === 'active' && 'Actif'}
-                                            {subscription.status === 'canceling' && 'Annulation en cours'}
-                                            {subscription.status === 'canceled' && 'Annulé'}
-                                            {subscription.status === 'past_due' && 'Paiement en retard'}
+                                            {subscription.status === 'active' && t('dashboard.subscription.active')}
+                                            {subscription.status === 'canceling' && t('dashboard.subscription.canceling')}
+                                            {subscription.status === 'canceled' && t('dashboard.subscription.canceled')}
+                                            {subscription.status === 'past_due' && t('dashboard.subscription.pastDue')}
                                         </Badge>
                                     </div>
 
                                     {subscription.started_at && (
                                         <div className="flex items-center justify-between text-sm">
-                                            <span className="text-muted-foreground">Abonné depuis</span>
+                                            <span className="text-muted-foreground">{t('dashboard.subscription.subscribedSince')}</span>
                                             <span>{subscription.started_at}</span>
                                         </div>
                                     )}
 
                                     {subscription.renews_at && (
                                         <div className="flex items-center justify-between text-sm">
-                                            <span className="text-muted-foreground">Prochain renouvellement</span>
+                                            <span className="text-muted-foreground">{t('dashboard.subscription.nextRenewal')}</span>
                                             <span>{subscription.renews_at}</span>
                                         </div>
                                     )}
 
                                     {subscription.ends_at && (
                                         <div className="flex items-center justify-between text-sm">
-                                            <span className="text-muted-foreground">Fin d'abonnement</span>
+                                            <span className="text-muted-foreground">{t('dashboard.subscription.endsAt')}</span>
                                             <span>{subscription.ends_at}</span>
                                         </div>
                                     )}
 
                                     {subscription.payment_method && (
                                         <div className="flex items-center justify-between text-sm">
-                                            <span className="text-muted-foreground">Carte</span>
+                                            <span className="text-muted-foreground">{t('dashboard.subscription.card')}</span>
                                             <span className="font-mono">
                                                 {subscription.payment_method.brand.toUpperCase()} •••• {subscription.payment_method.last4}
                                             </span>
@@ -239,7 +241,7 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                                         <Link href="/billing/portal" className="flex-1">
                                             <Button variant="outline" className="w-full" size="sm">
                                                 <Settings className="mr-2 h-4 w-4" />
-                                                Gérer
+                                                {t('dashboard.subscription.manage')}
                                             </Button>
                                         </Link>
 
@@ -251,30 +253,29 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                                                 className="flex-1"
                                             >
                                                 <RefreshCw className="mr-2 h-4 w-4" />
-                                                Reprendre
+                                                {t('dashboard.subscription.resume')}
                                             </Button>
                                         ) : subscription.status === 'active' ? (
                                             <Dialog open={cancelDialogOpen} onOpenChange={setCancelDialogOpen}>
                                                 <DialogTrigger asChild>
                                                     <Button variant="destructive" size="sm" className="flex-1">
                                                         <X className="mr-2 h-4 w-4" />
-                                                        Annuler
+                                                        {t('dashboard.subscription.cancelSubscription')}
                                                     </Button>
                                                 </DialogTrigger>
                                                 <DialogContent>
                                                     <DialogHeader>
-                                                        <DialogTitle>Annuler l'abonnement</DialogTitle>
+                                                        <DialogTitle>{t('dashboard.subscription.cancelTitle')}</DialogTitle>
                                                         <DialogDescription>
-                                                            Êtes-vous sûr de vouloir annuler votre abonnement Pro ?
-                                                            Vous conserverez l'accès jusqu'à la fin de la période de facturation.
+                                                            {t('dashboard.subscription.cancelDescription')}
                                                         </DialogDescription>
                                                     </DialogHeader>
                                                     <DialogFooter>
                                                         <Button variant="outline" onClick={() => setCancelDialogOpen(false)}>
-                                                            Conserver
+                                                            {t('dashboard.subscription.keepSubscription')}
                                                         </Button>
                                                         <Button variant="destructive" onClick={handleCancel} disabled={isSubmitting}>
-                                                            {isSubmitting ? 'Annulation...' : 'Confirmer l\'annulation'}
+                                                            {isSubmitting ? t('dashboard.subscription.canceling_') : t('dashboard.subscription.confirmCancel')}
                                                         </Button>
                                                     </DialogFooter>
                                                 </DialogContent>
@@ -288,7 +289,7 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                                 <Link href="/billing">
                                     <Button className="w-full">
                                         <Package className="mr-2 h-4 w-4" />
-                                        Passer au Pro (9,99 €/mois)
+                                        {t('dashboard.subscription.upgradePrice')}
                                     </Button>
                                 </Link>
                             )}
@@ -300,16 +301,16 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <Image className="h-5 w-5" />
-                                Historique des conversions
+                                {t('dashboard.history.title')}
                             </CardTitle>
                             <CardDescription>
-                                Vos 20 dernières conversions
+                                {t('dashboard.history.description')}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
                             {history.length === 0 ? (
                                 <p className="text-center py-8 text-muted-foreground">
-                                    Aucune conversion pour le moment.
+                                    {t('dashboard.history.empty')}
                                 </p>
                             ) : (
                                 <div className="space-y-2">
@@ -350,16 +351,16 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <FileText className="h-5 w-5" />
-                                Factures
+                                {t('dashboard.invoices.title')}
                             </CardTitle>
                             <CardDescription>
-                                Vos factures et reçus de paiement
+                                {t('dashboard.invoices.description')}
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
                             {invoices.length === 0 ? (
                                 <p className="text-center py-8 text-muted-foreground">
-                                    Aucune facture disponible.
+                                    {t('dashboard.invoices.empty')}
                                 </p>
                             ) : (
                                 <div className="space-y-2">
@@ -374,7 +375,7 @@ export default function Dashboard({ quota, subscription, history, invoices }: Da
                                             </div>
                                             <div className="flex items-center gap-2">
                                                 <Badge variant={invoice.status === 'paid' ? 'default' : 'secondary'}>
-                                                    {invoice.status === 'paid' ? 'Payée' : 'En attente'}
+                                                    {invoice.status === 'paid' ? t('dashboard.invoices.paid') : t('dashboard.invoices.pending')}
                                                 </Badge>
                                                 <a href={invoice.download_url} target="_blank" rel="noopener noreferrer">
                                                     <Button size="sm" variant="ghost">

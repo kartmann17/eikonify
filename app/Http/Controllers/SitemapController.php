@@ -182,8 +182,10 @@ ROBOTS;
             $content .= '    <changefreq>' . $page['changefreq'] . '</changefreq>' . "\n";
             $content .= '    <priority>' . $page['priority'] . '</priority>' . "\n";
 
-            // Add hreflang for multilingual support (French primary)
-            $content .= '    <xhtml:link rel="alternate" hreflang="fr" href="' . $baseUrl . $page['loc'] . '" />' . "\n";
+            // Add hreflang for multilingual support (fr, en, es)
+            $content .= '    <xhtml:link rel="alternate" hreflang="fr" href="' . $baseUrl . $page['loc'] . '?lang=fr" />' . "\n";
+            $content .= '    <xhtml:link rel="alternate" hreflang="en" href="' . $baseUrl . $page['loc'] . '?lang=en" />' . "\n";
+            $content .= '    <xhtml:link rel="alternate" hreflang="es" href="' . $baseUrl . $page['loc'] . '?lang=es" />' . "\n";
             $content .= '    <xhtml:link rel="alternate" hreflang="x-default" href="' . $baseUrl . $page['loc'] . '" />' . "\n";
 
             // Add image for homepage

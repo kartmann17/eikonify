@@ -1,5 +1,6 @@
 import { Head, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
+import { useTranslation } from 'react-i18next';
 import AppLayout from '@/layouts/app-layout';
 import SettingsLayout from '@/layouts/settings/layout';
 import { Button } from '@/components/ui/button';
@@ -10,11 +11,6 @@ import HeadingSmall from '@/components/heading-small';
 import { LoaderCircle } from 'lucide-react';
 import type { BreadcrumbItem } from '@/types';
 
-const breadcrumbs: BreadcrumbItem[] = [
-    { title: 'Settings', href: '/settings/profile' },
-    { title: 'Password', href: '/settings/password' },
-];
-
 type PasswordForm = {
     current_password: string;
     password: string;
@@ -22,6 +18,13 @@ type PasswordForm = {
 };
 
 export default function Password() {
+    const { t } = useTranslation();
+
+    const breadcrumbs: BreadcrumbItem[] = [
+        { title: t('nav.settings'), href: '/settings/profile' },
+        { title: t('settings.password.title'), href: '/settings/password' },
+    ];
+
     const { data, setData, put, processing, errors, reset, recentlySuccessful } = useForm<PasswordForm>({
         current_password: '',
         password: '',
@@ -42,13 +45,13 @@ export default function Password() {
             <SettingsLayout>
                 <div className="space-y-6">
                     <HeadingSmall
-                        title="Changer le mot de passe"
-                        description="Assurez-vous d'utiliser un mot de passe long et aléatoire"
+                        title={t('settings.password.title')}
+                        description={t('settings.password.description')}
                     />
 
                     <form onSubmit={submit} className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="current_password">Mot de passe actuel</Label>
+                            <Label htmlFor="current_password">{t('settings.password.currentPassword')}</Label>
                             <Input
                                 id="current_password"
                                 type="password"
@@ -60,7 +63,7 @@ export default function Password() {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password">Nouveau mot de passe</Label>
+                            <Label htmlFor="password">{t('settings.password.newPassword')}</Label>
                             <Input
                                 id="password"
                                 type="password"
@@ -72,7 +75,7 @@ export default function Password() {
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password_confirmation">Confirmer le mot de passe</Label>
+                            <Label htmlFor="password_confirmation">{t('settings.password.confirmPassword')}</Label>
                             <Input
                                 id="password_confirmation"
                                 type="password"
@@ -84,12 +87,12 @@ export default function Password() {
                         </div>
 
                         {recentlySuccessful && (
-                            <p className="text-sm text-green-600">Mot de passe mis à jour.</p>
+                            <p className="text-sm text-green-600">{t('settings.password.updated')}</p>
                         )}
 
                         <Button type="submit" disabled={processing}>
                             {processing && <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />}
-                            Changer le mot de passe
+                            {t('settings.password.submit')}
                         </Button>
                     </form>
                 </div>

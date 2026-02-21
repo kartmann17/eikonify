@@ -1,6 +1,7 @@
 import { router, usePage } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
-import { SeoHead, SEO_CONFIGS } from '@/components/seo-head';
+import { SeoHead } from '@/components/seo-head';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import {
     ActivityKeywordDialog,
@@ -30,6 +31,7 @@ const defaultSettings: ConversionSettingsType = {
 };
 
 export default function OptiseoConvert({ batchId, initialBatch }: ConvertPageProps) {
+    const { t } = useTranslation();
     const { auth } = usePage<{ auth?: Auth }>().props;
     const isPro = auth?.isPro ?? false;
 
@@ -103,7 +105,7 @@ export default function OptiseoConvert({ batchId, initialBatch }: ConvertPagePro
 
     return (
         <>
-            <SeoHead {...SEO_CONFIGS.convert} />
+            <SeoHead page="convert" noindex />
 
             <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
                 <div className="container mx-auto px-4 py-8">
@@ -115,15 +117,15 @@ export default function OptiseoConvert({ batchId, initialBatch }: ConvertPagePro
                         disabled={isProcessing}
                     >
                         <ArrowLeft className="mr-2 h-4 w-4" />
-                        Retour
+                        {t('common.back')}
                     </Button>
 
                     <div className="mx-auto max-w-4xl space-y-8">
                         {/* Header */}
                         <div className="text-center">
-                            <h1 className="mb-2 text-3xl font-bold">Paramètres de conversion</h1>
+                            <h1 className="mb-2 text-3xl font-bold">{t('convert.title')}</h1>
                             <p className="text-muted-foreground">
-                                Configurez les options de conversion et lancez le traitement
+                                {t('convert.subtitle')}
                             </p>
                         </div>
 
@@ -132,7 +134,7 @@ export default function OptiseoConvert({ batchId, initialBatch }: ConvertPagePro
                             <Card>
                                 <CardHeader>
                                     <CardTitle>
-                                        {currentBatch.images.length} image{currentBatch.images.length > 1 ? 's' : ''} à convertir
+                                        {t('convert.imagesToConvert', { count: currentBatch.images.length })}
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent>
@@ -145,7 +147,7 @@ export default function OptiseoConvert({ batchId, initialBatch }: ConvertPagePro
                                         ))}
                                         {currentBatch.images.length > 12 && (
                                             <div className="flex items-center justify-center rounded-lg border bg-muted text-sm text-muted-foreground">
-                                                +{currentBatch.images.length - 12} autres
+                                                {t('convert.others', { count: currentBatch.images.length - 12 })}
                                             </div>
                                         )}
                                     </div>
@@ -157,7 +159,7 @@ export default function OptiseoConvert({ batchId, initialBatch }: ConvertPagePro
                         {(isProcessing || isCompleted) && currentBatch && (
                             <Card>
                                 <CardHeader>
-                                    <CardTitle>Progression</CardTitle>
+                                    <CardTitle>{t('convert.progress')}</CardTitle>
                                 </CardHeader>
                                 <CardContent>
                                     <BatchProgress batch={currentBatch} />
@@ -175,10 +177,10 @@ export default function OptiseoConvert({ batchId, initialBatch }: ConvertPagePro
                                             <div>
                                                 <CardTitle className="flex items-center gap-2">
                                                     <Sparkles className="h-5 w-5" />
-                                                    Mots-clés SEO
+                                                    {t('convert.keywords')}
                                                 </CardTitle>
                                                 <CardDescription className="mt-1.5">
-                                                    Modifiez ou ajoutez des mots-clés pour la génération SEO
+                                                    {t('convert.keywordsHint')}
                                                 </CardDescription>
                                             </div>
                                             <ActivityKeywordDialog
@@ -203,10 +205,10 @@ export default function OptiseoConvert({ batchId, initialBatch }: ConvertPagePro
                                     <CardHeader>
                                         <CardTitle className="flex items-center gap-2">
                                             <Settings className="h-5 w-5" />
-                                            Paramètres de conversion
+                                            {t('convert.settingsTitle')}
                                         </CardTitle>
                                         <CardDescription>
-                                            Choisissez le format, la qualité et les dimensions
+                                            {t('convert.settingsSubtitle')}
                                         </CardDescription>
                                     </CardHeader>
                                     <CardContent>
@@ -235,14 +237,14 @@ export default function OptiseoConvert({ batchId, initialBatch }: ConvertPagePro
                                     className="gap-2"
                                 >
                                     <Play className="h-5 w-5" />
-                                    Lancer la conversion
+                                    {t('convert.startConversion')}
                                 </Button>
                             )}
 
                             {isProcessing && (
                                 <Button size="lg" disabled className="gap-2">
                                     <Loader2 className="h-5 w-5 animate-spin" />
-                                    Conversion en cours...
+                                    {t('convert.converting')}
                                 </Button>
                             )}
 
@@ -252,7 +254,7 @@ export default function OptiseoConvert({ batchId, initialBatch }: ConvertPagePro
                                     onClick={handleContinueToResults}
                                     className="gap-2"
                                 >
-                                    Voir les résultats
+                                    {t('convert.viewResults')}
                                     <ArrowRight className="h-5 w-5" />
                                 </Button>
                             )}

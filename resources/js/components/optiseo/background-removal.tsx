@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link, usePage } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -21,6 +22,7 @@ import {
 import type { Auth } from '@/types';
 
 export function BackgroundRemoval() {
+    const { t } = useTranslation();
     const { auth } = usePage<{ auth?: Auth }>().props;
     const isPro = auth?.isPro ?? false;
 
@@ -100,22 +102,22 @@ export function BackgroundRemoval() {
                     <div>
                         <CardTitle className="flex items-center gap-2">
                             <Scissors className="h-5 w-5" />
-                            Suppression d'arrière-plan
+                            {t('bgRemoval.title')}
                         </CardTitle>
                         <CardDescription className="mt-1.5">
-                            Supprimez l'arrière-plan de vos images en un clic
+                            {t('bgRemoval.subtitle')}
                         </CardDescription>
                     </div>
                     {usage && (
                         <div className="text-right">
                             <div className="flex items-center gap-2">
                                 <Badge variant={isPro ? 'default' : 'secondary'}>
-                                    {isPro ? 'Pro' : 'Gratuit'}
+                                    {isPro ? t('common.pro') : t('common.free')}
                                 </Badge>
                             </div>
                             <p className="text-xs text-muted-foreground mt-1">
-                                {usage.remaining}/{usage.quota} restant{usage.remaining > 1 ? 's' : ''}
-                                {usage.period === 'day' ? ' aujourd\'hui' : ' ce mois'}
+                                {usage.remaining}/{usage.quota} {usage.remaining > 1 ? t('bgRemoval.remainingToday') : t('bgRemoval.remainingToday')}
+                                {usage.period === 'day' ? ` ${t('bgRemoval.remainingToday')}` : ` ${t('bgRemoval.remainingMonth')}`}
                             </p>
                         </div>
                     )}
@@ -129,19 +131,17 @@ export function BackgroundRemoval() {
                             <AlertCircle className="h-5 w-5 text-amber-600" />
                             <div className="flex-1">
                                 <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
-                                    Quota {usage?.period === 'day' ? 'journalier' : 'mensuel'} atteint
+                                    {usage?.period === 'day' ? t('bgRemoval.quotaDaily') : t('bgRemoval.quotaMonthly')}
                                 </p>
                                 <p className="text-xs text-amber-700 dark:text-amber-300">
-                                    {isPro
-                                        ? 'Votre quota sera réinitialisé le mois prochain.'
-                                        : 'Passez au plan Pro pour 500 suppressions par mois.'}
+                                    {isPro ? t('bgRemoval.quotaResetPro') : t('bgRemoval.quotaUpgrade')}
                                 </p>
                             </div>
                             {!isPro && (
                                 <Link href="/billing">
                                     <Button size="sm" className="gap-1">
                                         <Crown className="h-4 w-4" />
-                                        Pro
+                                        {t('common.pro')}
                                     </Button>
                                 </Link>
                             )}
@@ -170,10 +170,10 @@ export function BackgroundRemoval() {
                             />
                             <Upload className="h-10 w-10 text-muted-foreground mb-3" />
                             <p className="text-sm font-medium">
-                                Glissez une image ou cliquez pour sélectionner
+                                {t('bgRemoval.dropInstruction')}
                             </p>
                             <p className="text-xs text-muted-foreground mt-1">
-                                PNG, JPG, WebP jusqu'à 25 Mo
+                                {t('bgRemoval.dropFormats')}
                             </p>
                         </div>
                     )}
@@ -183,12 +183,12 @@ export function BackgroundRemoval() {
                         <div className="grid gap-4 md:grid-cols-2">
                             {/* Original image */}
                             <div className="space-y-2">
-                                <p className="text-sm font-medium">Original</p>
+                                <p className="text-sm font-medium">{t('bgRemoval.original')}</p>
                                 <div className="relative aspect-square overflow-hidden rounded-lg border bg-muted">
                                     {previewUrl && (
                                         <img
                                             src={previewUrl}
-                                            alt="Original"
+                                            alt={t('bgRemoval.original')}
                                             className="h-full w-full object-contain"
                                         />
                                     )}
@@ -197,7 +197,7 @@ export function BackgroundRemoval() {
 
                             {/* Processing state */}
                             <div className="space-y-2">
-                                <p className="text-sm font-medium">Sans arriere-plan</p>
+                                <p className="text-sm font-medium">{t('bgRemoval.noBackground')}</p>
                                 <div
                                     className="relative aspect-square overflow-hidden rounded-lg border"
                                     style={{
@@ -214,9 +214,9 @@ export function BackgroundRemoval() {
                                             <div className="text-center w-full px-6">
                                                 <Loader2 className="h-8 w-8 animate-spin mx-auto text-primary" />
                                                 <p className="text-sm text-muted-foreground mt-2">
-                                                    {progress < 30 ? 'Chargement du modele IA...' :
-                                                     progress < 90 ? 'Analyse de l\'image...' :
-                                                     'Finalisation...'}
+                                                    {progress < 30 ? t('bgRemoval.loadingModel') :
+                                                     progress < 90 ? t('bgRemoval.analyzing') :
+                                                     t('bgRemoval.finalizing')}
                                                 </p>
                                                 <Progress value={progress} className="mt-3 h-2" />
                                                 <p className="text-xs text-muted-foreground mt-1">{progress}%</p>
@@ -237,13 +237,13 @@ export function BackgroundRemoval() {
                     {result && previewUrl && (
                         <div className="space-y-3">
                             <p className="text-sm font-medium text-center text-muted-foreground">
-                                Faites glisser le curseur pour comparer
+                                {t('bgRemoval.compareInstruction')}
                             </p>
                             <ImageComparisonSlider
                                 originalSrc={previewUrl}
                                 processedSrc={result.url}
-                                originalAlt="Image originale"
-                                processedAlt="Arriere-plan supprime"
+                                originalAlt={t('bgRemoval.original')}
+                                processedAlt={t('bgRemoval.noBackground')}
                                 className="max-w-lg mx-auto"
                             />
                         </div>
@@ -264,7 +264,7 @@ export function BackgroundRemoval() {
                                 <>
                                     <Button variant="outline" onClick={handleClear}>
                                         <X className="mr-2 h-4 w-4" />
-                                        Annuler
+                                        {t('bgRemoval.cancel')}
                                     </Button>
                                     <Button
                                         onClick={handleRemoveBackground}
@@ -273,12 +273,12 @@ export function BackgroundRemoval() {
                                         {isProcessing ? (
                                             <>
                                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                                Traitement...
+                                                {t('bgRemoval.processing')}
                                             </>
                                         ) : (
                                             <>
                                                 <Scissors className="mr-2 h-4 w-4" />
-                                                Supprimer l'arriere-plan
+                                                {t('bgRemoval.removeBackground')}
                                             </>
                                         )}
                                     </Button>
@@ -287,11 +287,11 @@ export function BackgroundRemoval() {
                                 <>
                                     <Button variant="outline" onClick={handleClear}>
                                         <RefreshCw className="mr-2 h-4 w-4" />
-                                        Nouvelle image
+                                        {t('bgRemoval.newImage')}
                                     </Button>
                                     <Button onClick={handleDownload}>
                                         <Download className="mr-2 h-4 w-4" />
-                                        Telecharger PNG
+                                        {t('bgRemoval.downloadPng')}
                                     </Button>
                                 </>
                             )}
@@ -303,7 +303,7 @@ export function BackgroundRemoval() {
                         <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 p-3 dark:border-green-900 dark:bg-green-950">
                             <CheckCircle2 className="h-4 w-4 text-green-600" />
                             <p className="text-sm text-green-800 dark:text-green-200">
-                                Arrière-plan supprimé avec succès
+                                {t('bgRemoval.success')}
                             </p>
                         </div>
                     )}

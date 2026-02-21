@@ -8,7 +8,7 @@ import { Navbar } from '@/components/navbar';
 import { Footer } from '@/components/footer';
 import { Hero } from '@/components/hero';
 import { CookieConsent } from '@/components/cookie-consent';
-import { SeoHead, SEO_CONFIGS } from '@/components/seo-head';
+import { SeoHead } from '@/components/seo-head';
 import { useImageUpload } from '@/hooks/use-image-upload';
 import { useKeywordSuggestions } from '@/hooks/use-keyword-suggestions';
 import { ArrowRight, Crown, Image, Loader2, Scissors, Sparkles } from 'lucide-react';
@@ -133,7 +133,7 @@ export default function OptiseoHome() {
 
     return (
         <>
-            <SeoHead {...SEO_CONFIGS.home} />
+            <SeoHead page="home" />
 
             {/* Upgrade Modal */}
             <UpgradeModal
