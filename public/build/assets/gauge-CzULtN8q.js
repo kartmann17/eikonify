@@ -1,1 +1,0 @@
-import{c}from"./button-CyqPGuFr.js";const e=[["circle",{cx:"12",cy:"12",r:"10",key:"1mglay"}],["path",{d:"m9 12 2 2 4-4",key:"dzmm74"}]],t=c("CircleCheck",e);const a=[["path",{d:"m12 14 4-4",key:"9kzdfg"}],["path",{d:"M3.34 19a10 10 0 1 1 17.32 0",key:"19p75a"}]],d=c("Gauge",a);export{t as C,d as G};
