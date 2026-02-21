@@ -1,4 +1,5 @@
 import { Link } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -54,6 +55,7 @@ function AnimatedCounter({ end, duration = 2000, suffix = '', prefix = '' }: { e
 
 // Animated image transformation component
 function ImageTransformation() {
+    const { t } = useTranslation();
     const [stage, setStage] = useState(0);
 
     useEffect(() => {
@@ -156,10 +158,10 @@ function ImageTransformation() {
                         <div className="flex items-center gap-2">
                             <div className={`w-2 h-2 rounded-full ${stage >= 3 ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'}`} />
                             <span className="text-white/70">
-                                {stage === 0 && 'Prêt à convertir'}
-                                {stage === 1 && 'Analyse en cours...'}
-                                {stage === 2 && 'Conversion WebP...'}
-                                {stage === 3 && 'Conversion terminée!'}
+                                {stage === 0 && t('home.hero.animation.ready')}
+                                {stage === 1 && t('home.hero.animation.analyzing')}
+                                {stage === 2 && t('home.hero.animation.converting')}
+                                {stage === 3 && t('home.hero.animation.done')}
                             </span>
                         </div>
                         <span className={`font-mono font-bold ${stage >= 3 ? 'text-emerald-400' : 'text-white/50'}`}>
@@ -173,21 +175,21 @@ function ImageTransformation() {
             <div className="absolute -left-4 top-1/4 animate-float">
                 <div className="bg-white/10 backdrop-blur-md rounded-full px-3 py-1.5 border border-white/20 flex items-center gap-2 shadow-xl">
                     <Gauge className="w-4 h-4 text-cyan-400" />
-                    <span className="text-white text-xs font-medium">Ultra rapide</span>
+                    <span className="text-white text-xs font-medium">{t('home.hero.badges.fast')}</span>
                 </div>
             </div>
 
             <div className="absolute -right-4 top-1/3 animate-float-delayed">
                 <div className="bg-white/10 backdrop-blur-md rounded-full px-3 py-1.5 border border-white/20 flex items-center gap-2 shadow-xl">
                     <Search className="w-4 h-4 text-violet-400" />
-                    <span className="text-white text-xs font-medium">SEO optimisé</span>
+                    <span className="text-white text-xs font-medium">{t('home.hero.badges.seo')}</span>
                 </div>
             </div>
 
             <div className="absolute -left-8 bottom-1/4 animate-float-slow">
                 <div className="bg-white/10 backdrop-blur-md rounded-full px-3 py-1.5 border border-white/20 flex items-center gap-2 shadow-xl">
                     <Sparkles className="w-4 h-4 text-amber-400" />
-                    <span className="text-white text-xs font-medium">IA intégrée</span>
+                    <span className="text-white text-xs font-medium">{t('home.hero.badges.ai')}</span>
                 </div>
             </div>
         </div>
@@ -195,6 +197,8 @@ function ImageTransformation() {
 }
 
 export function Hero({ onScrollToUpload }: HeroProps) {
+    const { t } = useTranslation();
+
     return (
         <section className="relative min-h-[90vh] flex items-center overflow-hidden">
             {/* Dramatic gradient background */}
@@ -224,20 +228,20 @@ export function Hero({ onScrollToUpload }: HeroProps) {
                         <div className="inline-flex items-center gap-2 mb-6">
                             <Badge variant="outline" className="border-violet-500/50 text-violet-400 bg-violet-500/10 px-3 py-1">
                                 <Zap className="w-3 h-3 mr-1" />
-                                Nouveau
+                                {t('home.hero.new')}
                             </Badge>
                             <span className="text-sm text-muted-foreground">
-                                Optimisation SEO par IA
+                                {t('home.hero.aiOptimization')}
                             </span>
                         </div>
 
                         {/* Main headline */}
                         <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight mb-6">
-                            <span className="text-foreground">Vos images,</span>
+                            <span className="text-foreground">{t('home.hero.headline1')}</span>
                             <br />
                             <span className="relative">
                                 <span className="bg-gradient-to-r from-violet-500 via-purple-500 to-cyan-500 bg-clip-text text-transparent">
-                                    transformées
+                                    {t('home.hero.headline2')}
                                 </span>
                                 {/* Underline decoration */}
                                 <svg className="absolute -bottom-2 left-0 w-full h-3 text-violet-500/30" viewBox="0 0 200 12" preserveAspectRatio="none">
@@ -245,14 +249,17 @@ export function Hero({ onScrollToUpload }: HeroProps) {
                                 </svg>
                             </span>
                             <br />
-                            <span className="text-foreground">pour le web</span>
+                            <span className="text-foreground">{t('home.hero.headline3')}</span>
                         </h1>
 
                         {/* Subheadline */}
                         <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0">
-                            Convertissez en <span className="text-foreground font-medium">WebP</span> & <span className="text-foreground font-medium">AVIF</span>,
-                            compressez jusqu'à <span className="text-emerald-500 font-bold">72%</span>,
-                            et générez automatiquement vos <span className="text-foreground font-medium">alt text</span> par IA.
+                            {t('home.hero.subheadline', {
+                                webp: (chunks: any) => <span className="text-foreground font-medium">{chunks}</span>,
+                                avif: (chunks: any) => <span className="text-foreground font-medium">{chunks}</span>,
+                                savings: (chunks: any) => <span className="text-emerald-500 font-bold">{chunks}</span>,
+                                alt: (chunks: any) => <span className="text-foreground font-medium">{chunks}</span>,
+                            }).toString().replace(/<[^>]+>/g, '')}
                         </p>
 
                         {/* Stats row */}
@@ -261,19 +268,19 @@ export function Hero({ onScrollToUpload }: HeroProps) {
                                 <div className="text-2xl sm:text-3xl font-bold text-foreground">
                                     <AnimatedCounter end={72} suffix="%" prefix="-" />
                                 </div>
-                                <div className="text-xs sm:text-sm text-muted-foreground">Compression</div>
+                                <div className="text-xs sm:text-sm text-muted-foreground">{t('home.hero.stats.compression')}</div>
                             </div>
                             <div className="text-center lg:text-left">
                                 <div className="text-2xl sm:text-3xl font-bold text-foreground">
                                     <AnimatedCounter end={500} suffix="+" />
                                 </div>
-                                <div className="text-xs sm:text-sm text-muted-foreground">Utilisateurs</div>
+                                <div className="text-xs sm:text-sm text-muted-foreground">{t('home.hero.stats.users')}</div>
                             </div>
                             <div className="text-center lg:text-left">
                                 <div className="text-2xl sm:text-3xl font-bold text-foreground">
                                     <AnimatedCounter end={100} suffix="%" />
                                 </div>
-                                <div className="text-xs sm:text-sm text-muted-foreground">Gratuit</div>
+                                <div className="text-xs sm:text-sm text-muted-foreground">{t('home.hero.stats.free')}</div>
                             </div>
                         </div>
 
@@ -286,7 +293,7 @@ export function Hero({ onScrollToUpload }: HeroProps) {
                             >
                                 <span className="relative z-10 flex items-center gap-2">
                                     <MousePointerClick className="w-5 h-5" />
-                                    Convertir mes images
+                                    {t('home.hero.cta')}
                                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                                 </span>
                                 {/* Shine effect */}
@@ -299,7 +306,7 @@ export function Hero({ onScrollToUpload }: HeroProps) {
                                 className="border-white/20 hover:bg-white/5"
                             >
                                 <Link href="/tarifs">
-                                    Voir les plans Pro
+                                    {t('home.hero.ctaPro')}
                                 </Link>
                             </Button>
                         </div>
@@ -308,15 +315,15 @@ export function Hero({ onScrollToUpload }: HeroProps) {
                         <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-6 gap-y-2 text-sm text-muted-foreground">
                             <div className="flex items-center gap-1.5">
                                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                                <span>Aucune inscription</span>
+                                <span>{t('home.hero.trust.noSignup')}</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                                <span>5 images/jour gratuites</span>
+                                <span>{t('home.hero.trust.freeImages')}</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                                <span>Données sécurisées</span>
+                                <span>{t('home.hero.trust.secureData')}</span>
                             </div>
                         </div>
                     </div>
@@ -334,7 +341,7 @@ export function Hero({ onScrollToUpload }: HeroProps) {
                     onClick={onScrollToUpload}
                     className="flex flex-col items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
                 >
-                    <span className="text-xs">Défilez pour commencer</span>
+                    <span className="text-xs">{t('home.hero.scroll')}</span>
                     <div className="w-6 h-10 rounded-full border-2 border-current flex items-start justify-center p-1">
                         <div className="w-1.5 h-3 bg-current rounded-full animate-bounce" />
                     </div>

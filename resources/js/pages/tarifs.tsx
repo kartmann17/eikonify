@@ -1,4 +1,5 @@
 import { Link, usePage } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import PublicLayout from '@/layouts/public-layout';
 import { SeoHead, SEO_CONFIGS } from '@/components/seo-head';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,56 +8,57 @@ import { Badge } from '@/components/ui/badge';
 import { Check, CreditCard, Crown, Sparkles, X, Zap } from 'lucide-react';
 import type { Auth } from '@/types';
 
-const FREE_FEATURES = [
-    { text: '5 images par jour', included: true },
-    { text: '3 suppressions d\'arriere-plan par jour', included: true },
-    { text: '1 generation de favicons par jour', included: true },
-    { text: 'Conversion WebP/AVIF', included: true },
-    { text: 'SEO basique (alt, title)', included: true },
-    { text: 'Code HTML basique (<picture>, <img>)', included: true },
-    { text: 'Export ZIP uniquement', included: true },
-    { text: 'Fichiers conserves 1h', included: true },
-    { text: 'Suggestions IA', included: false },
-    { text: 'Code avance (React, Vue, Next.js, CSS)', included: false },
-    { text: 'Schema markup (JSON-LD, Open Graph)', included: false },
-    { text: 'Analyse de performance', included: false },
-    { text: 'BlurHash/LQIP placeholders', included: false },
-    { text: 'Images responsive (variantes)', included: false },
-    { text: 'Historique des conversions', included: false },
-];
-
-const PRO_FEATURES = [
-    '500 images par mois',
-    '500 suppressions d\'arriere-plan par mois',
-    'Favicons illimites (6 tailles)',
-    '20 fichiers par lot',
-    'Fichiers conserves 24h',
-    'Suggestions de mots-cles IA',
-    'Code avance (React, Vue, Next.js, CSS, LQIP)',
-    'Schema markup (JSON-LD, Open Graph, Twitter Cards)',
-    'Analyse de performance detaillee',
-    'BlurHash/LQIP placeholders',
-    'Images responsive (5 variantes)',
-    'Historique complet',
-    'Export CSV, JSON, HTML',
-];
-
 export default function Tarifs() {
+    const { t } = useTranslation();
     const { auth } = usePage<{ auth?: Auth }>().props;
     const isLoggedIn = !!auth?.user;
     const isPro = auth?.isPro ?? false;
 
+    const FREE_FEATURES = [
+        { text: t('pricing.features.imagesPerDay', { count: 5 }), included: true },
+        { text: t('pricing.features.bgRemovalPerDay', { count: 3 }), included: true },
+        { text: t('pricing.features.faviconPerDay', { count: 1 }), included: true },
+        { text: t('pricing.features.conversionWebpAvif'), included: true },
+        { text: t('pricing.features.basicSeo'), included: true },
+        { text: t('pricing.features.basicCode'), included: true },
+        { text: t('pricing.features.exportZipOnly'), included: true },
+        { text: t('pricing.features.filesKept1h'), included: true },
+        { text: t('pricing.features.aiSuggestions'), included: false },
+        { text: t('pricing.features.advancedCode'), included: false },
+        { text: t('pricing.features.schemaMarkup'), included: false },
+        { text: t('pricing.features.performanceAnalysis'), included: false },
+        { text: t('pricing.features.blurHashLqip'), included: false },
+        { text: t('pricing.features.responsiveImages'), included: false },
+        { text: t('pricing.features.conversionHistory'), included: false },
+    ];
+
+    const PRO_FEATURES = [
+        t('pricing.features.imagesPerMonth', { count: 500 }),
+        t('pricing.features.bgRemovalPerMonth', { count: 500 }),
+        t('pricing.features.faviconUnlimited'),
+        t('pricing.features.batchFiles', { count: 20 }),
+        t('pricing.features.filesKept24h'),
+        t('pricing.features.aiSuggestions'),
+        t('pricing.features.advancedCode'),
+        t('pricing.features.schemaMarkup'),
+        t('pricing.features.performanceAnalysis'),
+        t('pricing.features.blurHashLqip'),
+        t('pricing.features.responsiveImages'),
+        t('pricing.features.conversionHistory'),
+        t('pricing.features.exportFormats'),
+    ];
+
     return (
         <PublicLayout>
-            <SeoHead {...SEO_CONFIGS.tarifs} />
+            <SeoHead {...SEO_CONFIGS.tarifs} keywords={[...SEO_CONFIGS.tarifs.keywords]} />
 
             <div className="flex flex-col items-center justify-center py-12 px-4">
                 <div className="text-center max-w-2xl mx-auto mb-12">
                     <h1 className="text-4xl font-bold mb-4">
-                        Tarifs simples et transparents
+                        {t('pricing.title')}
                     </h1>
                     <p className="text-lg text-muted-foreground">
-                        Commencez gratuitement, passez au Pro quand vous avez besoin de plus de puissance.
+                        {t('pricing.subtitle')}
                     </p>
                 </div>
 
@@ -66,14 +68,14 @@ export default function Tarifs() {
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <Zap className="h-5 w-5" />
-                                Gratuit
+                                {t('pricing.free.name')}
                             </CardTitle>
-                            <CardDescription>Pour decouvrir Eikonify</CardDescription>
+                            <CardDescription>{t('pricing.free.description')}</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div>
                                 <span className="text-4xl font-bold">0 EUR</span>
-                                <span className="text-muted-foreground">/mois</span>
+                                <span className="text-muted-foreground">{t('common.perMonth')}</span>
                             </div>
 
                             <ul className="space-y-3">
@@ -91,7 +93,7 @@ export default function Tarifs() {
 
                             <Link href="/">
                                 <Button variant="outline" className="w-full">
-                                    {isPro ? 'Plan inferieur' : 'Commencer gratuitement'}
+                                    {isPro ? t('pricing.free.lowerPlan', 'Plan inférieur') : t('pricing.free.cta')}
                                 </Button>
                             </Link>
                         </CardContent>
@@ -102,20 +104,20 @@ export default function Tarifs() {
                         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                             <Badge className="bg-amber-500 hover:bg-amber-600">
                                 <Sparkles className="mr-1 h-3 w-3" />
-                                {isPro ? 'Votre plan' : 'Recommande'}
+                                {isPro ? t('pricing.pro.yourPlan') : t('pricing.pro.recommended')}
                             </Badge>
                         </div>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
                                 <CreditCard className="h-5 w-5" />
-                                Pro
+                                {t('pricing.pro.name')}
                             </CardTitle>
-                            <CardDescription>Pour les professionnels</CardDescription>
+                            <CardDescription>{t('pricing.pro.description')}</CardDescription>
                         </CardHeader>
                         <CardContent className="space-y-6">
                             <div>
                                 <span className="text-4xl font-bold">9,99 EUR</span>
-                                <span className="text-muted-foreground">/mois</span>
+                                <span className="text-muted-foreground">{t('common.perMonth')}</span>
                             </div>
 
                             <ul className="space-y-3">
@@ -128,26 +130,26 @@ export default function Tarifs() {
                             </ul>
 
                             <div className="text-xs text-muted-foreground border-t pt-4">
-                                Au-dela de 500 images, facturation a l'usage : 0,25 EUR/image
+                                {t('pricing.pro.overage', { limit: 500, price: '0,25 EUR' })}
                             </div>
 
                             {isPro ? (
                                 <Button variant="outline" className="w-full" disabled>
                                     <Check className="mr-2 h-4 w-4 text-green-500" />
-                                    Abonnement actif
+                                    {t('pricing.pro.active')}
                                 </Button>
                             ) : isLoggedIn ? (
                                 <Link href="/billing">
                                     <Button className="w-full gap-2">
                                         <Crown className="h-4 w-4" />
-                                        Passer au Pro
+                                        {t('pricing.pro.cta')}
                                     </Button>
                                 </Link>
                             ) : (
                                 <Link href="/register">
                                     <Button className="w-full gap-2">
                                         <Crown className="h-4 w-4" />
-                                        S'inscrire et passer au Pro
+                                        {t('pricing.pro.ctaRegister')}
                                     </Button>
                                 </Link>
                             )}
@@ -157,14 +159,13 @@ export default function Tarifs() {
 
                 <div className="text-center text-sm text-muted-foreground max-w-xl mx-auto mt-12 space-y-4">
                     <p>
-                        Paiement securise par Stripe. Vous pouvez annuler a tout moment depuis votre espace personnel.
-                        Les prix sont en euros TTC.
+                        {t('pricing.securePayment')}
                     </p>
                     {!isLoggedIn && (
                         <p>
-                            Deja inscrit ?{' '}
+                            {t('pricing.alreadyRegistered')}{' '}
                             <Link href="/login" className="text-primary hover:underline">
-                                Connectez-vous
+                                {t('pricing.loginLink')}
                             </Link>
                         </p>
                     )}

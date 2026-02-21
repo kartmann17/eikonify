@@ -35,6 +35,38 @@
         "title": "Convertissez vos images en WebP & AVIF",
         "subtitle": "Optimisation SEO automatique par IA",
         "description": "Glissez-déposez vos images pour les convertir en formats modernes avec des métadonnées SEO générées automatiquement.",
+        "hero": {
+            "new": "Nouveau",
+            "aiOptimization": "Optimisation SEO par IA",
+            "headline1": "Vos images,",
+            "headline2": "transformées",
+            "headline3": "pour le web",
+            "subheadline": "Convertissez en <webp>WebP</webp> & <avif>AVIF</avif>, compressez jusqu'à <savings>72%</savings>, et générez automatiquement vos <alt>alt text</alt> par IA.",
+            "stats": {
+                "compression": "Compression",
+                "users": "Utilisateurs",
+                "free": "Gratuit"
+            },
+            "cta": "Convertir mes images",
+            "ctaPro": "Voir les plans Pro",
+            "trust": {
+                "noSignup": "Aucune inscription",
+                "freeImages": "5 images/jour gratuites",
+                "secureData": "Données sécurisées"
+            },
+            "scroll": "Défilez pour commencer",
+            "badges": {
+                "fast": "Ultra rapide",
+                "seo": "SEO optimisé",
+                "ai": "IA intégrée"
+            },
+            "animation": {
+                "ready": "Prêt à convertir",
+                "analyzing": "Analyse en cours...",
+                "converting": "Conversion WebP...",
+                "done": "Conversion terminée!"
+            }
+        },
         "dropzone": {
             "title": "Glissez vos images ici",
             "subtitle": "ou cliquez pour sélectionner",
@@ -46,6 +78,46 @@
             "seo": "SEO automatique",
             "ai": "Métadonnées IA",
             "fast": "Rapide & gratuit"
+        },
+        "upload": {
+            "step1": "1. Sélectionnez vos images",
+            "step1Desc": "Glissez-déposez vos images ou cliquez pour parcourir vos fichiers",
+            "step2": "2. Ajoutez vos mots-clés SEO",
+            "step2Desc": "Ces mots-clés seront utilisés pour générer les noms de fichiers et les attributs alt/title",
+            "deleteAll": "Tout supprimer",
+            "uploading": "Upload en cours...",
+            "continue": "Continuer vers les paramètres"
+        },
+        "quota": {
+            "remaining": "{{remaining}}/{{total}} conversions restantes aujourd'hui",
+            "exhausted": "Épuisé",
+            "almostExhausted": "Bientôt épuisé",
+            "exceeded": "Quota journalier atteint",
+            "exceededDesc": "Revenez demain ou passez au plan Pro pour 500 images/mois",
+            "viewPro": "Voir le plan Pro"
+        },
+        "why": "Pourquoi utiliser Eikonify ?",
+        "featureCards": {
+            "conversion": {
+                "title": "Conversion WebP/AVIF",
+                "free": "5 images/jour, 5 par lot",
+                "pro": "500 images/mois, 20 par lot"
+            },
+            "bgRemoval": {
+                "title": "Suppression arrière-plan",
+                "free": "3/jour par IA",
+                "pro": "500/mois par IA"
+            },
+            "seo": {
+                "title": "SEO automatique",
+                "free": "Génération basique",
+                "pro": "IA + suggestions personnalisées"
+            },
+            "export": {
+                "title": "Export complet",
+                "free": "ZIP uniquement",
+                "pro": "ZIP, CSV, JSON, HTML"
+            }
         }
     },
     "convert": {
@@ -218,12 +290,15 @@
     },
     "footer": {
         "description": "Convertisseur d'images WebP/AVIF avec optimisation SEO automatique par IA.",
+        "product": "Produit",
+        "legalInfo": "Informations légales",
         "legal": "Mentions légales",
         "privacy": "Politique de confidentialité",
         "terms": "CGU",
         "termsOfSale": "CGV",
         "contact": "Contact",
-        "copyright": "© {{year}} Eikonify. Tous droits réservés."
+        "copyright": "© {{year}} Eikonify. Tous droits réservés.",
+        "brandOf": "Eikonify est une marque de"
     },
     "errors": {
         "generic": "Une erreur est survenue",

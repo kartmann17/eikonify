@@ -1,6 +1,8 @@
 import { Link } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 
 export function Footer() {
+    const { t } = useTranslation();
     const currentYear = new Date().getFullYear();
 
     return (
@@ -23,27 +25,27 @@ export function Footer() {
                             Eikonify
                         </Link>
                         <p className="text-sm text-muted-foreground">
-                            Convertissez et optimisez vos images pour le web avec des noms SEO-friendly et des attributs alt/title automatiques.
+                            {t('footer.description')}
                         </p>
                     </div>
 
                     {/* Product */}
                     <div className="space-y-4">
-                        <h3 className="font-semibold">Produit</h3>
+                        <h3 className="font-semibold">{t('footer.product', 'Produit')}</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
                                 <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                                    Accueil
+                                    {t('nav.home')}
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/tarifs" className="text-muted-foreground hover:text-foreground transition-colors">
-                                    Tarifs
+                                    {t('nav.pricing')}
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/dashboard" className="text-muted-foreground hover:text-foreground transition-colors">
-                                    Mon compte
+                                    {t('nav.dashboard')}
                                 </Link>
                             </li>
                         </ul>
@@ -51,26 +53,26 @@ export function Footer() {
 
                     {/* Legal */}
                     <div className="space-y-4">
-                        <h3 className="font-semibold">Informations legales</h3>
+                        <h3 className="font-semibold">{t('footer.legalInfo', 'Informations légales')}</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
                                 <Link href="/mentions-legales" className="text-muted-foreground hover:text-foreground transition-colors">
-                                    Mentions legales
+                                    {t('footer.legal')}
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/cgu" className="text-muted-foreground hover:text-foreground transition-colors">
-                                    Conditions d'utilisation
+                                    {t('footer.terms')}
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/cgv" className="text-muted-foreground hover:text-foreground transition-colors">
-                                    Conditions de vente
+                                    {t('footer.termsOfSale')}
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/privacy-policy" className="text-muted-foreground hover:text-foreground transition-colors">
-                                    Politique de confidentialite
+                                    {t('footer.privacy')}
                                 </Link>
                             </li>
                         </ul>
@@ -78,7 +80,7 @@ export function Footer() {
 
                     {/* Contact */}
                     <div className="space-y-4">
-                        <h3 className="font-semibold">Contact</h3>
+                        <h3 className="font-semibold">{t('footer.contact')}</h3>
                         <ul className="space-y-2 text-sm">
                             <li>
                                 <a href="mailto:contact@batikko.fr" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -97,10 +99,10 @@ export function Footer() {
                 {/* Bottom bar */}
                 <div className="mt-8 border-t pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
                     <p>
-                        &copy; {currentYear} Eikonify. Tous droits reserves.
+                        {t('footer.copyright', { year: currentYear })}
                     </p>
                     <p>
-                        Eikonify est une marque de{' '}
+                        {t('footer.brandOf', 'Eikonify est une marque de')}{' '}
                         <a
                             href="https://batikko.com"
                             target="_blank"
