@@ -2,18 +2,22 @@
 
 namespace App\Services;
 
-use Anthropic\Laravel\Facades\Anthropic;
 use App\Models\ApiLog;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class VisionAnalysisService
 {
+    // Claude 3 Haiku - supports vision, fast and cost-effective
+    // To use Claude 3.5 Haiku, upgrade API key access at console.anthropic.com
     protected string $model = 'claude-3-haiku-20240307';
 
     // Claude 3 Haiku pricing (per 1M tokens)
     protected const INPUT_PRICE_PER_MILLION = 0.25;   // $0.25 / 1M input tokens
     protected const OUTPUT_PRICE_PER_MILLION = 1.25;  // $1.25 / 1M output tokens
+
+    protected const API_URL = 'https://api.anthropic.com/v1/messages';
 
     /**
      * Analyze an image and generate SEO metadata.
@@ -29,7 +33,11 @@ class VisionAnalysisService
 
             $prompt = $this->buildPrompt($keywords);
 
-            $response = Anthropic::messages()->create([
+            $response = Http::withHeaders([
+                'x-api-key' => config('anthropic.api_key'),
+                'anthropic-version' => '2023-06-01',
+                'content-type' => 'application/json',
+            ])->timeout(60)->post(self::API_URL, [
                 'model' => $this->model,
                 'max_tokens' => 500,
                 'messages' => [
@@ -53,16 +61,21 @@ class VisionAnalysisService
                 ],
             ]);
 
-            // Log API usage
-            $this->logApiUsage($response);
+            if (! $response->successful()) {
+                throw new \Exception('API error: ' . $response->body());
+            }
 
-            return $this->parseResponse($response->content[0]->text);
+            $data = $response->json();
+
+            // Log API usage
+            $this->logApiUsage($data);
+
+            return $this->parseResponse($data['content'][0]['text'] ?? '');
         } catch (\Exception $e) {
             Log::error('Vision analysis failed', [
                 'message' => $e->getMessage(),
                 'code' => $e->getCode(),
                 'class' => get_class($e),
-                'trace' => $e->getTraceAsString(),
             ]);
 
             return $this->getFallbackMetadata($keywords);
@@ -174,17 +187,17 @@ PROMPT;
     /**
      * Log API usage to database.
      */
-    protected function logApiUsage($response): void
+    protected function logApiUsage(array $response): void
     {
         try {
-            $usage = $response->usage ?? null;
+            $usage = $response['usage'] ?? null;
 
             if (! $usage) {
                 return;
             }
 
-            $inputTokens = $usage->inputTokens ?? 0;
-            $outputTokens = $usage->outputTokens ?? 0;
+            $inputTokens = $usage['input_tokens'] ?? 0;
+            $outputTokens = $usage['output_tokens'] ?? 0;
 
             // Calculate cost in USD
             $inputCost = ($inputTokens / 1_000_000) * self::INPUT_PRICE_PER_MILLION;
