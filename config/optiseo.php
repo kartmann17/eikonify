@@ -55,6 +55,7 @@ return [
         'disk' => env('OPTISEO_DISK', 'public'),
         'originals_path' => 'optiseo/originals',
         'converted_path' => 'optiseo/converted',
+        'variants_path' => 'optiseo/variants',
     ],
 
     /*
@@ -151,5 +152,55 @@ return [
     'vision' => [
         'enabled' => env('OPTISEO_VISION_ENABLED', true),
         'model' => env('OPTISEO_VISION_MODEL', 'claude-3-5-haiku-20241022'),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Images Responsive
+    |--------------------------------------------------------------------------
+    | Configuration pour la génération de variantes responsive.
+    */
+    'responsive' => [
+        'breakpoints' => [
+            'thumbnail' => 320,
+            'small' => 640,
+            'medium' => 768,
+            'large' => 1024,
+            'xlarge' => 1280,
+        ],
+        'formats' => ['webp', 'avif'],
+        'quality' => 80,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Performance & Placeholders
+    |--------------------------------------------------------------------------
+    | Configuration pour BlurHash, LQIP et analyse de performance.
+    */
+    'performance' => [
+        'blurhash' => [
+            'components_x' => 4,
+            'components_y' => 3,
+        ],
+        'lqip' => [
+            'size' => 20,
+            'quality' => 30,
+        ],
+        'color_palette' => [
+            'count' => 5,
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Génération de Code
+    |--------------------------------------------------------------------------
+    | Options par défaut pour la génération de snippets de code.
+    */
+    'code_generation' => [
+        'default_loading' => 'lazy',
+        'default_decoding' => 'async',
+        'include_dimensions' => true,
     ],
 ];

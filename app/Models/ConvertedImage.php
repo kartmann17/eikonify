@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Storage;
 
 class ConvertedImage extends Model
@@ -29,6 +30,12 @@ class ConvertedImage extends Model
         'alt_text',
         'title_text',
         'meta_description',
+        'blur_hash',
+        'lqip_data_uri',
+        'dominant_color',
+        'color_palette',
+        'has_transparency',
+        'aspect_ratio',
         'status',
         'error_message',
     ];
@@ -42,6 +49,8 @@ class ConvertedImage extends Model
             'converted_size' => 'integer',
             'converted_width' => 'integer',
             'converted_height' => 'integer',
+            'color_palette' => 'array',
+            'has_transparency' => 'boolean',
         ];
     }
 
@@ -51,6 +60,14 @@ class ConvertedImage extends Model
     public function batch(): BelongsTo
     {
         return $this->belongsTo(ConversionBatch::class, 'batch_id');
+    }
+
+    /**
+     * Get the responsive variants for this image.
+     */
+    public function variants(): HasMany
+    {
+        return $this->hasMany(ImageVariant::class, 'image_id');
     }
 
     /**
@@ -188,5 +205,48 @@ class ConvertedImage extends Model
             'title' => $this->title_text,
             'meta_description' => $this->meta_description,
         ];
+    }
+
+    /**
+     * Get performance data as an array.
+     */
+    public function performanceData(): array
+    {
+        return [
+            'blur_hash' => $this->blur_hash,
+            'lqip_data_uri' => $this->lqip_data_uri,
+            'dominant_color' => $this->dominant_color,
+            'color_palette' => $this->color_palette,
+            'has_transparency' => $this->has_transparency,
+            'aspect_ratio' => $this->aspect_ratio,
+        ];
+    }
+
+    /**
+     * Check if the image has performance metadata.
+     */
+    public function hasPerformanceData(): bool
+    {
+        return $this->blur_hash !== null || $this->dominant_color !== null;
+    }
+
+    /**
+     * Get srcset string for all variants of a specific format.
+     */
+    public function srcset(string $format = 'webp'): string
+    {
+        return $this->variants
+            ->where('format', $format)
+            ->sortBy('breakpoint')
+            ->map(fn (ImageVariant $variant) => $variant->srcsetDescriptor())
+            ->implode(', ');
+    }
+
+    /**
+     * Get variants grouped by format.
+     */
+    public function variantsByFormat(): array
+    {
+        return $this->variants->groupBy('format')->toArray();
     }
 }

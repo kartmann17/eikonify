@@ -1,9 +1,13 @@
 <?php
 
 use App\Http\Controllers\Api\BackgroundRemovalController;
+use App\Http\Controllers\Api\CodeGeneratorController;
 use App\Http\Controllers\Api\ExportController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\KeywordController;
+use App\Http\Controllers\Api\PerformanceController;
+use App\Http\Controllers\Api\ResponsiveImageController;
+use App\Http\Controllers\Api\SchemaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,6 +44,10 @@ Route::prefix('optiseo')->group(function () {
     // Basic export (ZIP only for free)
     Route::get('export/{batchId}/zip', [ExportController::class, 'zip']);
 
+    // Code generation (basic - free, full - pro)
+    Route::get('images/{id}/code', [CodeGeneratorController::class, 'show']);
+    Route::get('images/{id}/code/{type}', [CodeGeneratorController::class, 'generate']);
+
     /*
     |--------------------------------------------------------------------------
     | Pro Plan Routes (500 images/month, 500 bg removals/month, AI SEO, history)
@@ -57,5 +65,20 @@ Route::prefix('optiseo')->group(function () {
         Route::get('export/{batchId}/csv', [ExportController::class, 'csv']);
         Route::get('export/{batchId}/json', [ExportController::class, 'json']);
         Route::get('export/{batchId}/html', [ExportController::class, 'html']);
+
+        // Responsive image variants
+        Route::get('images/{id}/variants', [ResponsiveImageController::class, 'index']);
+        Route::post('images/{id}/variants', [ResponsiveImageController::class, 'generate']);
+        Route::delete('images/{id}/variants', [ResponsiveImageController::class, 'destroy']);
+
+        // Performance analysis
+        Route::get('images/{id}/performance', [PerformanceController::class, 'analyze']);
+        Route::post('images/{id}/performance', [PerformanceController::class, 'generatePerformanceData']);
+        Route::get('batches/{id}/performance', [PerformanceController::class, 'analyzeBatch']);
+
+        // Schema markup
+        Route::get('images/{id}/schema', [SchemaController::class, 'show']);
+        Route::get('batches/{id}/schema', [SchemaController::class, 'batch']);
+        Route::get('batches/{id}/sitemap', [SchemaController::class, 'imageSitemap']);
     });
 });

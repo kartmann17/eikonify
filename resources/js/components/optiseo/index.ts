@@ -1,9 +1,13 @@
 export { ActivityKeywordDialog } from './activity-keyword-dialog';
 export { BackgroundRemoval } from './background-removal';
 export { BatchProgress } from './batch-progress';
+export { CodeGeneratorPanel } from './code-generator-panel';
 export { ConversionSettings } from './conversion-settings';
 export { DropZone } from './drop-zone';
 export { ExportPanel } from './export-panel';
 export { ImageCard } from './image-card';
 export { KeywordInput } from './keyword-input';
+export { PerformancePanel } from './performance-panel';
+export { PlaceholderPreview } from './placeholder-preview';
+export { SchemaPreview } from './schema-preview';
 export { UpgradeModal } from './upgrade-modal';

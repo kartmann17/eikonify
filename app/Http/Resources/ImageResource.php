@@ -45,6 +45,30 @@ class ImageResource extends JsonResource
                 'meta_description' => $this->meta_description,
             ],
 
+            // Performance metadata
+            'performance' => $this->when($this->hasPerformanceData(), [
+                'blur_hash' => $this->blur_hash,
+                'lqip_data_uri' => $this->lqip_data_uri,
+                'dominant_color' => $this->dominant_color,
+                'color_palette' => $this->color_palette,
+                'has_transparency' => $this->has_transparency,
+                'aspect_ratio' => $this->aspect_ratio,
+            ]),
+
+            // Responsive variants
+            'variants' => $this->when($this->relationLoaded('variants') && $this->variants->count() > 0, function () {
+                return $this->variants->map(fn ($variant) => [
+                    'id' => $variant->id,
+                    'size_name' => $variant->size_name,
+                    'breakpoint' => $variant->breakpoint,
+                    'width' => $variant->actual_width ?? $variant->width,
+                    'height' => $variant->actual_height,
+                    'format' => $variant->format,
+                    'file_size' => $variant->file_size,
+                    'url' => $variant->url(),
+                ]);
+            }),
+
             // Stats
             'compression_ratio' => $this->compressionRatio(),
             'size_saved' => $this->sizeSaved(),
