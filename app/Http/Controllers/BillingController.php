@@ -25,7 +25,7 @@ class BillingController extends Controller
                 'name' => 'Pro',
                 'price' => '9,99 €/mois',
                 'quota' => '500 images/mois',
-                'overage' => '0,02 €/image au-delà',
+                'overage' => '0,25 €/image au-delà',
                 'features' => [
                     '500 images par mois',
                     '500 suppressions d\'arrière-plan par mois',
