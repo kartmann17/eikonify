@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\ConvertedImage;
+use App\Services\BlurHashService;
 use App\Services\FileNamingService;
 use App\Services\ImageConversionService;
 use App\Services\SeoGeneratorService;
@@ -53,7 +54,8 @@ class ConvertImageJob implements ShouldQueue
         ImageConversionService $conversionService,
         FileNamingService $namingService,
         SeoGeneratorService $seoService,
-        VisionAnalysisService $visionService
+        VisionAnalysisService $visionService,
+        BlurHashService $blurHashService
     ): void {
         // Check if batch was cancelled
         if ($this->batch()?->cancelled()) {
@@ -108,6 +110,9 @@ class ConvertImageJob implements ShouldQueue
             // Mark as completed
             $this->image->markAsCompleted($conversionData);
 
+            // Generate performance data (BlurHash, LQIP, colors)
+            $this->generatePerformanceData($blurHashService, $conversionData);
+
             // Increment batch progress
             $batch->incrementProcessed();
 
@@ -154,6 +159,29 @@ class ConvertImageJob implements ShouldQueue
             'meta_description' => $seoService->generateMetaDescription($keywords, $this->index),
             'suggested_filename' => '',
         ];
+    }
+
+    /**
+     * Generate performance data (BlurHash, LQIP, colors) for the converted image.
+     */
+    protected function generatePerformanceData(BlurHashService $blurHashService, array $conversionData): void
+    {
+        try {
+            $disk = \Illuminate\Support\Facades\Storage::disk(config('optiseo.storage.disk'));
+            $imagePath = $disk->path($conversionData['converted_path']);
+
+            $width = $conversionData['converted_width'] ?? $this->image->original_width;
+            $height = $conversionData['converted_height'] ?? $this->image->original_height;
+
+            $performanceData = $blurHashService->generatePerformanceData($imagePath, $width, $height);
+
+            $this->image->update($performanceData);
+
+            Log::info('Performance data generated for image: ' . $this->image->id);
+        } catch (Throwable $e) {
+            // Don't fail the job if performance data generation fails
+            Log::warning('Failed to generate performance data: ' . $e->getMessage());
+        }
     }
 
     /**

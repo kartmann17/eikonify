@@ -39,6 +39,91 @@ export interface ConvertedFileInfo {
     url: string | null;
 }
 
+// Performance metadata for advanced SEO features
+export interface PerformanceMetadata {
+    blur_hash: string | null;
+    lqip_data_uri: string | null;
+    dominant_color: string | null;
+    color_palette: string[] | null;
+    has_transparency: boolean;
+    aspect_ratio: string | null;
+}
+
+// Responsive image variant
+export interface ImageVariant {
+    id: string;
+    size_name: 'thumbnail' | 'small' | 'medium' | 'large' | 'xlarge';
+    breakpoint: number;
+    width: number;
+    height: number;
+    format: 'webp' | 'avif';
+    file_size: number;
+    url: string;
+}
+
+// Code generation types
+export type CodeType = 'picture' | 'img' | 'img_srcset' | 'react' | 'vue' | 'nextjs' | 'css' | 'lazy';
+
+export interface CodeTypeInfo {
+    label: string;
+    language: 'html' | 'jsx' | 'vue' | 'css';
+    description: string;
+}
+
+export interface GeneratedCode {
+    image_id: string;
+    types: Record<CodeType, CodeTypeInfo>;
+    code: Record<CodeType, string>;
+}
+
+// Performance analysis types
+export interface PerformanceAnalysis {
+    score: number;
+    rating: 'excellent' | 'good' | 'needs-improvement' | 'poor';
+    lcp_impact: {
+        estimated_ms: number;
+        rating: 'good' | 'needs-improvement' | 'poor';
+        threshold_good: number;
+        threshold_poor: number;
+    };
+    cls_impact: {
+        score: number;
+        rating: 'good' | 'needs-improvement' | 'poor';
+        reason: string;
+    };
+    load_times: {
+        '3g': { label: string; time_ms: number };
+        '4g': { label: string; time_ms: number };
+        'wifi': { label: string; time_ms: number };
+    };
+    recommendations: Array<{
+        priority: 'high' | 'medium' | 'low';
+        type: string;
+        title: string;
+        description: string;
+        action: string;
+    }>;
+    metrics: {
+        file_size: number;
+        compression_ratio: number | null;
+        has_dimensions: boolean;
+        has_alt_text: boolean;
+        has_responsive_variants: boolean;
+        has_performance_data: boolean;
+        format: string;
+    };
+}
+
+// Schema markup types
+export interface ImageSchema {
+    json_ld: object;
+    json_ld_script: string;
+    open_graph: Record<string, string>;
+    open_graph_html: string;
+    twitter_card: Record<string, string>;
+    twitter_card_html: string;
+}
+
 export interface ConvertedImage {
     id: string;
     batch_id: string;
@@ -46,6 +131,8 @@ export interface ConvertedImage {
     original: OriginalFileInfo;
     converted?: ConvertedFileInfo;
     seo: SeoMetadata;
+    performance?: PerformanceMetadata;
+    variants?: ImageVariant[];
     compression_ratio: number | null;
     size_saved: number | null;
     error_message?: string;
