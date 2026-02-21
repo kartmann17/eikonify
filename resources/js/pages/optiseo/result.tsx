@@ -261,7 +261,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
 
                                         {/* Code Generator Panel */}
                                         {displayImage && (
-                                            <CodeGeneratorPanel image={displayImage} />
+                                            <CodeGeneratorPanel image={displayImage} isPro={isPro} />
                                         )}
                                     </>
                                 )}
