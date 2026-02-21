@@ -32,6 +32,7 @@ class ConversionRequest extends FormRequest
             'max_width' => ['nullable', 'integer', 'min:1', 'max:' . config('optiseo.dimensions.max_width', 4096)],
             'max_height' => ['nullable', 'integer', 'min:1', 'max:' . config('optiseo.dimensions.max_height', 4096)],
             'maintain_aspect_ratio' => ['boolean'],
+            'generate_favicons' => ['boolean'],
             'keywords' => ['nullable', 'array', 'max:10'],
             'keywords.*' => ['string', 'max:50'],
         ];
@@ -66,6 +67,7 @@ class ConversionRequest extends FormRequest
             'max_width' => $this->validated('max_width'),
             'max_height' => $this->validated('max_height'),
             'maintain_aspect_ratio' => $this->validated('maintain_aspect_ratio', true),
+            'generate_favicons' => $this->validated('generate_favicons', false),
         ];
     }
 }

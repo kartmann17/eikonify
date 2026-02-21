@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\ConvertedImage;
 use App\Services\BlurHashService;
+use App\Services\FaviconService;
 use App\Services\FileNamingService;
 use App\Services\ImageConversionService;
 use App\Services\SeoGeneratorService;
@@ -55,7 +56,8 @@ class ConvertImageJob implements ShouldQueue
         FileNamingService $namingService,
         SeoGeneratorService $seoService,
         VisionAnalysisService $visionService,
-        BlurHashService $blurHashService
+        BlurHashService $blurHashService,
+        FaviconService $faviconService
     ): void {
         // Check if batch was cancelled
         if ($this->batch()?->cancelled()) {
@@ -112,6 +114,11 @@ class ConvertImageJob implements ShouldQueue
 
             // Generate performance data (BlurHash, LQIP, colors)
             $this->generatePerformanceData($blurHashService, $conversionData);
+
+            // Generate favicons if requested
+            if ($this->settings['generate_favicons'] ?? false) {
+                $this->generateFavicons($faviconService);
+            }
 
             // Increment batch progress
             $batch->incrementProcessed();
@@ -181,6 +188,20 @@ class ConvertImageJob implements ShouldQueue
         } catch (Throwable $e) {
             // Don't fail the job if performance data generation fails
             Log::warning('Failed to generate performance data: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Generate favicons from the converted image.
+     */
+    protected function generateFavicons(FaviconService $faviconService): void
+    {
+        try {
+            $faviconService->generateAll($this->image);
+            Log::info('Favicons generated for image: ' . $this->image->id);
+        } catch (Throwable $e) {
+            // Don't fail the job if favicon generation fails
+            Log::warning('Failed to generate favicons: ' . $e->getMessage());
         }
     }
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\BackgroundRemovalController;
 use App\Http\Controllers\Api\CodeGeneratorController;
 use App\Http\Controllers\Api\ExportController;
+use App\Http\Controllers\Api\FaviconController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\KeywordController;
 use App\Http\Controllers\Api\PerformanceController;
@@ -47,6 +48,14 @@ Route::prefix('optiseo')->group(function () {
     // Code generation (basic - free, full - pro)
     Route::get('images/{id}/code', [CodeGeneratorController::class, 'show']);
     Route::get('images/{id}/code/{type}', [CodeGeneratorController::class, 'generate']);
+
+    // Favicon generation (1/day free, unlimited Pro)
+    Route::get('favicons/usage', [FaviconController::class, 'usage']);
+    Route::get('images/{id}/favicons', [FaviconController::class, 'index']);
+    Route::post('images/{id}/favicons', [FaviconController::class, 'generate']);
+    Route::delete('images/{id}/favicons', [FaviconController::class, 'destroy']);
+    Route::get('images/{id}/favicons/download', [FaviconController::class, 'download']);
+    Route::get('images/{id}/favicons/html', [FaviconController::class, 'html']);
 
     /*
     |--------------------------------------------------------------------------

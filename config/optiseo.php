@@ -203,4 +203,25 @@ return [
         'default_decoding' => 'async',
         'include_dimensions' => true,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Favicons & Icônes App
+    |--------------------------------------------------------------------------
+    | Configuration pour la génération de favicons et icônes d'application.
+    */
+    'favicons' => [
+        'sizes' => [
+            'favicon-16x16' => 16,
+            'favicon-32x32' => 32,
+            'apple-touch-icon' => 180,
+            'android-chrome-192x192' => 192,
+            'android-chrome-512x512' => 512,
+            'mstile-150x150' => 150,
+        ],
+        'format' => 'png',
+        'quality' => 90,
+        'storage_path' => 'optiseo/favicons',
+        'daily_free_limit' => 1,
+    ],
 ];
