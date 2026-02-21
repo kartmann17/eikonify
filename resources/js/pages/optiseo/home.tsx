@@ -1,4 +1,5 @@
 import { Link, router, usePage } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -22,6 +23,7 @@ interface Usage {
 }
 
 export default function OptiseoHome() {
+    const { t } = useTranslation();
     const { auth } = usePage<{ auth?: Auth }>().props;
     const isPro = auth?.isPro ?? false;
     const uploadSectionRef = useRef<HTMLDivElement>(null);
@@ -155,11 +157,11 @@ export default function OptiseoHome() {
                             <div className="flex items-center justify-center gap-4">
                                 <div className="flex items-center gap-2 rounded-full bg-muted px-4 py-2 text-sm">
                                     <span className="text-muted-foreground">
-                                        {usage.remaining}/{usage.quota} conversions restantes aujourd'hui
+                                        {t('home.quota.remaining', { remaining: usage.remaining, total: usage.quota })}
                                     </span>
                                     {usage.remaining <= 2 && (
                                         <Badge variant="outline" className="border-amber-500 text-amber-600">
-                                            {usage.remaining === 0 ? 'Épuisé' : 'Bientôt épuisé'}
+                                            {usage.remaining === 0 ? t('home.quota.exhausted') : t('home.quota.almostExhausted')}
                                         </Badge>
                                     )}
                                 </div>
@@ -171,7 +173,7 @@ export default function OptiseoHome() {
                                         className="gap-1"
                                     >
                                         <Crown className="h-4 w-4 text-amber-500" />
-                                        Passer Pro
+                                        {t('pricing.pro.cta')}
                                     </Button>
                                 )}
                             </div>
@@ -185,10 +187,10 @@ export default function OptiseoHome() {
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-2">
                                     <Image className="h-5 w-5" />
-                                    1. Sélectionnez vos images
+                                    {t('home.upload.step1')}
                                 </CardTitle>
                                 <CardDescription>
-                                    Glissez-déposez vos images ou cliquez pour parcourir vos fichiers
+                                    {t('home.upload.step1Desc')}
                                 </CardDescription>
                             </CardHeader>
                             <CardContent>
@@ -204,15 +206,15 @@ export default function OptiseoHome() {
                                     <div className="mt-4 flex items-center justify-between rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-900 dark:bg-amber-950">
                                         <div>
                                             <p className="font-medium text-amber-800 dark:text-amber-200">
-                                                Quota journalier atteint
+                                                {t('home.quota.exceeded')}
                                             </p>
                                             <p className="text-sm text-amber-700 dark:text-amber-300">
-                                                Revenez demain ou passez au plan Pro pour 500 images/mois
+                                                {t('home.quota.exceededDesc')}
                                             </p>
                                         </div>
                                         <Button onClick={() => setShowUpgradeModal(true)} className="gap-1">
                                             <Crown className="h-4 w-4" />
-                                            Voir le plan Pro
+                                            {t('home.quota.viewPro')}
                                         </Button>
                                     </div>
                                 )}
@@ -244,7 +246,7 @@ export default function OptiseoHome() {
                                                 onClick={clearFiles}
                                                 disabled={isUploading}
                                             >
-                                                Tout supprimer
+                                                {t('home.upload.deleteAll')}
                                             </Button>
                                         </div>
                                         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4">
@@ -269,11 +271,10 @@ export default function OptiseoHome() {
                                         <div>
                                             <CardTitle className="flex items-center gap-2">
                                                 <Sparkles className="h-5 w-5" />
-                                                2. Ajoutez vos mots-clés SEO
+                                                {t('home.upload.step2')}
                                             </CardTitle>
                                             <CardDescription className="mt-1.5">
-                                                Ces mots-clés seront utilisés pour générer les noms de fichiers
-                                                et les attributs alt/title
+                                                {t('home.upload.step2Desc')}
                                             </CardDescription>
                                         </div>
                                         <ActivityKeywordDialog
@@ -307,11 +308,11 @@ export default function OptiseoHome() {
                                     {isUploading ? (
                                         <>
                                             <Loader2 className="h-5 w-5 animate-spin" />
-                                            Upload en cours...
+                                            {t('home.upload.uploading')}
                                         </>
                                     ) : (
                                         <>
-                                            Continuer vers les paramètres
+                                            {t('home.upload.continue')}
                                             <ArrowRight className="h-5 w-5" />
                                         </>
                                     )}
@@ -326,7 +327,7 @@ export default function OptiseoHome() {
                     {/* Features */}
                     <div className="mx-auto mt-16 max-w-4xl">
                         <h2 className="mb-8 text-center text-2xl font-bold">
-                            Pourquoi utiliser Eikonify ?
+                            {t('home.why')}
                         </h2>
                         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                             <Card>
@@ -334,9 +335,9 @@ export default function OptiseoHome() {
                                     <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-3">
                                         <Image className="h-6 w-6 text-primary" />
                                     </div>
-                                    <h3 className="mb-2 font-semibold">Conversion WebP/AVIF</h3>
+                                    <h3 className="mb-2 font-semibold">{t('home.featureCards.conversion.title')}</h3>
                                     <p className="text-sm text-muted-foreground">
-                                        {isPro ? '500 images/mois, 20 par lot' : '5 images/jour, 5 par lot'}
+                                        {isPro ? t('home.featureCards.conversion.pro') : t('home.featureCards.conversion.free')}
                                     </p>
                                 </CardContent>
                             </Card>
@@ -345,9 +346,9 @@ export default function OptiseoHome() {
                                     <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-3">
                                         <Scissors className="h-6 w-6 text-primary" />
                                     </div>
-                                    <h3 className="mb-2 font-semibold">Suppression arrière-plan</h3>
+                                    <h3 className="mb-2 font-semibold">{t('home.featureCards.bgRemoval.title')}</h3>
                                     <p className="text-sm text-muted-foreground">
-                                        {isPro ? '500/mois par IA' : '3/jour par IA'}
+                                        {isPro ? t('home.featureCards.bgRemoval.pro') : t('home.featureCards.bgRemoval.free')}
                                     </p>
                                 </CardContent>
                             </Card>
@@ -356,9 +357,9 @@ export default function OptiseoHome() {
                                     <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-3">
                                         <Sparkles className="h-6 w-6 text-primary" />
                                     </div>
-                                    <h3 className="mb-2 font-semibold">SEO automatique</h3>
+                                    <h3 className="mb-2 font-semibold">{t('home.featureCards.seo.title')}</h3>
                                     <p className="text-sm text-muted-foreground">
-                                        {isPro ? 'IA + suggestions personnalisées' : 'Génération basique'}
+                                        {isPro ? t('home.featureCards.seo.pro') : t('home.featureCards.seo.free')}
                                     </p>
                                 </CardContent>
                             </Card>
@@ -367,9 +368,9 @@ export default function OptiseoHome() {
                                     <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-3">
                                         <ArrowRight className="h-6 w-6 text-primary" />
                                     </div>
-                                    <h3 className="mb-2 font-semibold">Export complet</h3>
+                                    <h3 className="mb-2 font-semibold">{t('home.featureCards.export.title')}</h3>
                                     <p className="text-sm text-muted-foreground">
-                                        {isPro ? 'ZIP, CSV, JSON, HTML' : 'ZIP uniquement'}
+                                        {isPro ? t('home.featureCards.export.pro') : t('home.featureCards.export.free')}
                                     </p>
                                 </CardContent>
                             </Card>

@@ -35,6 +35,38 @@
         "title": "Convert your images to WebP & AVIF",
         "subtitle": "Automatic SEO optimization with AI",
         "description": "Drag and drop your images to convert them to modern formats with automatically generated SEO metadata.",
+        "hero": {
+            "new": "New",
+            "aiOptimization": "AI-powered SEO optimization",
+            "headline1": "Your images,",
+            "headline2": "transformed",
+            "headline3": "for the web",
+            "subheadline": "Convert to <webp>WebP</webp> & <avif>AVIF</avif>, compress up to <savings>72%</savings>, and automatically generate your <alt>alt text</alt> with AI.",
+            "stats": {
+                "compression": "Compression",
+                "users": "Users",
+                "free": "Free"
+            },
+            "cta": "Convert my images",
+            "ctaPro": "View Pro plans",
+            "trust": {
+                "noSignup": "No signup required",
+                "freeImages": "5 free images/day",
+                "secureData": "Secure data"
+            },
+            "scroll": "Scroll to start",
+            "badges": {
+                "fast": "Ultra fast",
+                "seo": "SEO optimized",
+                "ai": "AI integrated"
+            },
+            "animation": {
+                "ready": "Ready to convert",
+                "analyzing": "Analyzing...",
+                "converting": "Converting to WebP...",
+                "done": "Conversion complete!"
+            }
+        },
         "dropzone": {
             "title": "Drop your images here",
             "subtitle": "or click to select",
@@ -46,6 +78,46 @@
             "seo": "Automatic SEO",
             "ai": "AI metadata",
             "fast": "Fast & free"
+        },
+        "upload": {
+            "step1": "1. Select your images",
+            "step1Desc": "Drag and drop your images or click to browse your files",
+            "step2": "2. Add your SEO keywords",
+            "step2Desc": "These keywords will be used to generate file names and alt/title attributes",
+            "deleteAll": "Delete all",
+            "uploading": "Uploading...",
+            "continue": "Continue to settings"
+        },
+        "quota": {
+            "remaining": "{{remaining}}/{{total}} conversions remaining today",
+            "exhausted": "Exhausted",
+            "almostExhausted": "Almost exhausted",
+            "exceeded": "Daily quota reached",
+            "exceededDesc": "Come back tomorrow or upgrade to Pro for 500 images/month",
+            "viewPro": "View Pro plan"
+        },
+        "why": "Why use Eikonify?",
+        "featureCards": {
+            "conversion": {
+                "title": "WebP/AVIF Conversion",
+                "free": "5 images/day, 5 per batch",
+                "pro": "500 images/month, 20 per batch"
+            },
+            "bgRemoval": {
+                "title": "Background Removal",
+                "free": "3/day with AI",
+                "pro": "500/month with AI"
+            },
+            "seo": {
+                "title": "Automatic SEO",
+                "free": "Basic generation",
+                "pro": "AI + personalized suggestions"
+            },
+            "export": {
+                "title": "Full Export",
+                "free": "ZIP only",
+                "pro": "ZIP, CSV, JSON, HTML"
+            }
         }
     },
     "convert": {
@@ -218,12 +290,15 @@
     },
     "footer": {
         "description": "WebP/AVIF image converter with automatic AI-powered SEO optimization.",
+        "product": "Product",
+        "legalInfo": "Legal Information",
         "legal": "Legal notice",
         "privacy": "Privacy policy",
         "terms": "Terms of use",
         "termsOfSale": "Terms of sale",
         "contact": "Contact",
-        "copyright": "© {{year}} Eikonify. All rights reserved."
+        "copyright": "© {{year}} Eikonify. All rights reserved.",
+        "brandOf": "Eikonify is a brand of"
     },
     "errors": {
         "generic": "An error occurred",
