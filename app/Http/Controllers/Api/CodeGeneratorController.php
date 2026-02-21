@@ -17,15 +17,21 @@ class CodeGeneratorController extends Controller
     /**
      * Get all code snippets for an image.
      */
-    public function show(string $id): JsonResponse
+    public function show(Request $request, string $id): JsonResponse
     {
         $image = ConvertedImage::with('variants')->findOrFail($id);
+        $isPro = $this->isPro($request);
 
-        $code = $this->codeGenerator->generateAllCode($image);
-        $types = $this->codeGenerator->getAvailableTypes();
+        $types = $this->codeGenerator->getAvailableTypes($isPro);
+        $code = [];
+
+        foreach (array_keys($types) as $type) {
+            $code[$type] = $this->codeGenerator->getCodeByType($image, $type);
+        }
 
         return response()->json([
             'image_id' => $image->id,
+            'is_pro' => $isPro,
             'types' => $types,
             'code' => $code,
         ]);
@@ -37,13 +43,23 @@ class CodeGeneratorController extends Controller
     public function generate(Request $request, string $id, string $type): JsonResponse
     {
         $image = ConvertedImage::with('variants')->findOrFail($id);
+        $isPro = $this->isPro($request);
 
-        $types = $this->codeGenerator->getAvailableTypes();
+        // Check if type requires Pro
+        if ($this->codeGenerator->isProType($type) && ! $isPro) {
+            return response()->json([
+                'message' => 'Ce type de code nécessite un abonnement Pro',
+                'type' => $type,
+                'pro_required' => true,
+            ], 403);
+        }
 
-        if (! array_key_exists($type, $types)) {
+        $allTypes = $this->codeGenerator->getAvailableTypes(true);
+
+        if (! array_key_exists($type, $allTypes)) {
             return response()->json([
                 'message' => 'Type de code invalide',
-                'available_types' => array_keys($types),
+                'available_types' => array_keys($this->codeGenerator->getAvailableTypes($isPro)),
             ], 400);
         }
 
@@ -58,8 +74,23 @@ class CodeGeneratorController extends Controller
         return response()->json([
             'image_id' => $image->id,
             'type' => $type,
-            'info' => $types[$type],
+            'info' => $allTypes[$type],
             'code' => $code,
         ]);
+    }
+
+    /**
+     * Check if current user has Pro access.
+     */
+    protected function isPro(Request $request): bool
+    {
+        $user = $request->user();
+
+        if (! $user) {
+            // Check session for guest Pro access
+            return session('is_pro', false);
+        }
+
+        return $user->subscribed('pro') || $user->onTrial();
     }
 }

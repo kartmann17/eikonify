@@ -367,50 +367,77 @@ HTML;
     /**
      * Get available code types with labels.
      */
-    public function getAvailableTypes(): array
+    public function getAvailableTypes(bool $isPro = false): array
     {
-        return [
+        $types = [
+            // Free types
             'picture' => [
                 'label' => '<picture> avec fallbacks',
                 'language' => 'html',
                 'description' => 'Tag HTML5 avec support AVIF, WebP et fallback JPEG',
+                'pro' => false,
             ],
             'img' => [
                 'label' => '<img> simple',
                 'language' => 'html',
                 'description' => 'Tag img basique avec attributs SEO',
+                'pro' => false,
             ],
+            // Pro types
             'img_srcset' => [
                 'label' => '<img> avec srcset',
                 'language' => 'html',
                 'description' => 'Tag img avec images responsive',
+                'pro' => true,
             ],
             'react' => [
                 'label' => 'React Component',
                 'language' => 'jsx',
                 'description' => 'Composant React fonctionnel',
+                'pro' => true,
             ],
             'vue' => [
                 'label' => 'Vue Component',
                 'language' => 'vue',
                 'description' => 'Composant Vue 3 avec script setup',
+                'pro' => true,
             ],
             'nextjs' => [
                 'label' => 'Next.js Image',
                 'language' => 'jsx',
                 'description' => 'Composant next/image optimisé',
+                'pro' => true,
             ],
             'css' => [
                 'label' => 'CSS Background',
                 'language' => 'css',
                 'description' => 'Background-image avec image-set()',
+                'pro' => true,
             ],
             'lazy' => [
                 'label' => 'Lazy Loading (LQIP)',
                 'language' => 'html',
                 'description' => 'Chargement progressif avec placeholder flou',
+                'pro' => true,
             ],
         ];
+
+        // Filter out Pro types if not Pro user
+        if (! $isPro) {
+            return array_filter($types, fn ($type) => ! $type['pro']);
+        }
+
+        return $types;
+    }
+
+    /**
+     * Check if a code type requires Pro.
+     */
+    public function isProType(string $type): bool
+    {
+        $proTypes = ['img_srcset', 'react', 'vue', 'nextjs', 'css', 'lazy'];
+
+        return in_array($type, $proTypes);
     }
 
     /**
