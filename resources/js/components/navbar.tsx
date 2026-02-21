@@ -1,10 +1,13 @@
 import { Link, usePage } from '@inertiajs/react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
+import { LanguageSelector } from '@/components/language-selector';
 import { Crown, LogIn, Shield, User } from 'lucide-react';
 import type { Auth } from '@/types';
 
 export function Navbar() {
     const { auth } = usePage<{ auth?: Auth }>().props;
+    const { t } = useTranslation();
 
     return (
         <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -23,13 +26,14 @@ export function Navbar() {
                     Eikonify
                 </Link>
                 <nav className="flex items-center gap-2">
+                    <LanguageSelector />
                     {auth?.user ? (
                         <>
                             {!auth.isPro && (
                                 <Link href="/billing">
                                     <Button variant="outline" size="sm" className="gap-1 hidden sm:flex">
                                         <Crown className="h-4 w-4 text-amber-500" />
-                                        Passer Pro
+                                        {t('pricing.pro.cta')}
                                     </Button>
                                 </Link>
                             )}
@@ -44,7 +48,7 @@ export function Navbar() {
                             <Link href="/dashboard">
                                 <Button variant="outline" size="sm">
                                     <User className="mr-2 h-4 w-4" />
-                                    <span className="hidden sm:inline">Mon compte</span>
+                                    <span className="hidden sm:inline">{t('nav.dashboard')}</span>
                                 </Button>
                             </Link>
                         </>
@@ -53,13 +57,13 @@ export function Navbar() {
                             <Link href="/login">
                                 <Button variant="ghost" size="sm">
                                     <LogIn className="mr-2 h-4 w-4" />
-                                    <span className="hidden sm:inline">Connexion</span>
+                                    <span className="hidden sm:inline">{t('common.login')}</span>
                                 </Button>
                             </Link>
                             <Link href="/register">
                                 <Button size="sm">
-                                    <span className="hidden sm:inline">Creer un compte</span>
-                                    <span className="sm:hidden">S'inscrire</span>
+                                    <span className="hidden sm:inline">{t('common.register')}</span>
+                                    <span className="sm:hidden">{t('common.register')}</span>
                                 </Button>
                             </Link>
                         </>

@@ -1,0 +1,238 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "error": "Error",
+        "success": "Success",
+        "cancel": "Cancel",
+        "confirm": "Confirm",
+        "save": "Save",
+        "delete": "Delete",
+        "download": "Download",
+        "copy": "Copy",
+        "copied": "Copied!",
+        "close": "Close",
+        "back": "Back",
+        "next": "Next",
+        "previous": "Previous",
+        "search": "Search",
+        "perMonth": "/month",
+        "perDay": "/day",
+        "free": "Free",
+        "pro": "Pro",
+        "login": "Login",
+        "register": "Sign up",
+        "logout": "Logout"
+    },
+    "nav": {
+        "home": "Home",
+        "pricing": "Pricing",
+        "dashboard": "Dashboard",
+        "settings": "Settings",
+        "billing": "Billing",
+        "profile": "Profile"
+    },
+    "home": {
+        "title": "Convert your images to WebP & AVIF",
+        "subtitle": "Automatic SEO optimization with AI",
+        "description": "Drag and drop your images to convert them to modern formats with automatically generated SEO metadata.",
+        "dropzone": {
+            "title": "Drop your images here",
+            "subtitle": "or click to select",
+            "formats": "PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP",
+            "maxSize": "Max {{size}} MB per file"
+        },
+        "features": {
+            "conversion": "WebP/AVIF conversion",
+            "seo": "Automatic SEO",
+            "ai": "AI metadata",
+            "fast": "Fast & free"
+        }
+    },
+    "convert": {
+        "title": "Conversion settings",
+        "format": "Output format",
+        "quality": "Quality",
+        "qualityHint": "Higher quality means larger file size",
+        "maxWidth": "Max width",
+        "maxHeight": "Max height",
+        "maintainRatio": "Maintain aspect ratio",
+        "keywords": "SEO keywords",
+        "keywordsPlaceholder": "E.g.: shoes, running, sport",
+        "keywordsHint": "Add keywords to optimize file names and SEO",
+        "generateFavicons": "Generate favicons & app icons",
+        "removeBackground": "Remove background",
+        "startConversion": "Start conversion",
+        "converting": "Converting...",
+        "imagesSelected": "{{count}} image(s) selected"
+    },
+    "result": {
+        "title": "Conversion complete!",
+        "subtitle": "{{count}} image(s) successfully converted",
+        "tabs": {
+            "download": "Download",
+            "seo": "SEO",
+            "code": "Code",
+            "favicons": "Favicons",
+            "performance": "Performance"
+        },
+        "downloadAll": "Download all (ZIP)",
+        "selectImage": "Select an image",
+        "newConversion": "New conversion",
+        "backToSettings": "Settings"
+    },
+    "pricing": {
+        "title": "Simple and transparent pricing",
+        "subtitle": "Start for free, upgrade to Pro when you need more power.",
+        "free": {
+            "name": "Free",
+            "description": "To discover Eikonify",
+            "cta": "Start for free"
+        },
+        "pro": {
+            "name": "Pro",
+            "description": "For professionals",
+            "cta": "Upgrade to Pro",
+            "ctaRegister": "Sign up and upgrade to Pro",
+            "recommended": "Recommended",
+            "yourPlan": "Your plan",
+            "active": "Active subscription",
+            "overage": "Beyond {{limit}} images, usage billing: {{price}}/image"
+        },
+        "features": {
+            "imagesPerDay": "{{count}} images per day",
+            "imagesPerMonth": "{{count}} images per month",
+            "bgRemovalPerDay": "{{count}} background removals per day",
+            "bgRemovalPerMonth": "{{count}} background removals per month",
+            "faviconPerDay": "{{count}} favicon generation per day",
+            "faviconUnlimited": "Unlimited favicons (6 sizes)",
+            "conversionWebpAvif": "WebP/AVIF conversion",
+            "basicSeo": "Basic SEO (alt, title)",
+            "basicCode": "Basic HTML code",
+            "exportZipOnly": "ZIP export only",
+            "filesKept1h": "Files kept for 1h",
+            "filesKept24h": "Files kept for 24h",
+            "aiSuggestions": "AI suggestions",
+            "advancedCode": "Advanced code (React, Vue, Next.js, CSS)",
+            "schemaMarkup": "Schema markup (JSON-LD, Open Graph)",
+            "performanceAnalysis": "Performance analysis",
+            "blurHashLqip": "BlurHash/LQIP placeholders",
+            "responsiveImages": "Responsive images (variants)",
+            "conversionHistory": "Conversion history",
+            "batchFiles": "{{count}} files per batch",
+            "exportFormats": "CSV, JSON, HTML export"
+        },
+        "securePayment": "Secure payment by Stripe. Cancel anytime.",
+        "alreadyRegistered": "Already registered?",
+        "loginLink": "Log in"
+    },
+    "export": {
+        "title": "Export",
+        "format": "Export format",
+        "zip": "ZIP archive",
+        "csv": "CSV file",
+        "json": "JSON file",
+        "html": "HTML code"
+    },
+    "code": {
+        "title": "Code generation",
+        "type": "Code type",
+        "html": "Basic HTML",
+        "picture": "HTML Picture",
+        "react": "React",
+        "vue": "Vue.js",
+        "nextjs": "Next.js",
+        "css": "CSS Background",
+        "lazy": "Lazy loading"
+    },
+    "favicon": {
+        "title": "Favicons & App Icons",
+        "description": "Generate all favicon sizes for your website",
+        "generate": "Generate favicons",
+        "generating": "Generating...",
+        "downloadZip": "Download ZIP",
+        "copyHtml": "Copy HTML code",
+        "sizes": {
+            "favicon16": "Favicon 16x16",
+            "favicon32": "Favicon 32x32",
+            "appleTouchIcon": "Apple Touch Icon",
+            "androidChrome192": "Android Chrome 192",
+            "androidChrome512": "Android Chrome 512",
+            "mstile": "MS Tile 150"
+        },
+        "tabs": {
+            "preview": "Preview",
+            "html": "HTML Code",
+            "manifest": "Manifest"
+        },
+        "quota": {
+            "remaining": "{{count}} remaining today",
+            "unlimited": "Unlimited"
+        }
+    },
+    "performance": {
+        "title": "Performance analysis",
+        "originalSize": "Original size",
+        "convertedSize": "Converted size",
+        "savings": "Savings",
+        "placeholder": {
+            "title": "Placeholders & Colors",
+            "description": "Use this data to improve perceived loading",
+            "comparison": "Comparison",
+            "viewOriginal": "View original",
+            "viewPlaceholder": "View placeholder",
+            "lqip": "LQIP (Low Quality Image Placeholder)",
+            "blurhash": "BlurHash",
+            "dominantColor": "Dominant color",
+            "colorPalette": "Color palette",
+            "transparency": "Transparency",
+            "aspectRatio": "Ratio"
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "Login",
+            "email": "Email",
+            "password": "Password",
+            "rememberMe": "Remember me",
+            "forgotPassword": "Forgot password?",
+            "submit": "Log in",
+            "noAccount": "Don't have an account?",
+            "registerLink": "Create an account"
+        },
+        "register": {
+            "title": "Create an account",
+            "name": "Name",
+            "email": "Email",
+            "password": "Password",
+            "confirmPassword": "Confirm password",
+            "submit": "Sign up",
+            "hasAccount": "Already have an account?",
+            "loginLink": "Log in"
+        },
+        "forgotPassword": {
+            "title": "Forgot password",
+            "description": "Enter your email to receive a reset link.",
+            "submit": "Send link",
+            "backToLogin": "Back to login"
+        }
+    },
+    "footer": {
+        "description": "WebP/AVIF image converter with automatic AI-powered SEO optimization.",
+        "legal": "Legal notice",
+        "privacy": "Privacy policy",
+        "terms": "Terms of use",
+        "termsOfSale": "Terms of sale",
+        "contact": "Contact",
+        "copyright": "© {{year}} Eikonify. All rights reserved."
+    },
+    "errors": {
+        "generic": "An error occurred",
+        "notFound": "Page not found",
+        "serverError": "Server error",
+        "maintenance": "Maintenance in progress",
+        "quotaExceeded": "Quota exceeded",
+        "invalidFile": "Invalid file",
+        "fileTooLarge": "File too large",
+        "conversionFailed": "Conversion failed"
+    }
+}
