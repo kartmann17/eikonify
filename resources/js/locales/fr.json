@@ -1,0 +1,238 @@
+{
+    "common": {
+        "loading": "Chargement...",
+        "error": "Erreur",
+        "success": "Succès",
+        "cancel": "Annuler",
+        "confirm": "Confirmer",
+        "save": "Enregistrer",
+        "delete": "Supprimer",
+        "download": "Télécharger",
+        "copy": "Copier",
+        "copied": "Copié !",
+        "close": "Fermer",
+        "back": "Retour",
+        "next": "Suivant",
+        "previous": "Précédent",
+        "search": "Rechercher",
+        "perMonth": "/mois",
+        "perDay": "/jour",
+        "free": "Gratuit",
+        "pro": "Pro",
+        "login": "Connexion",
+        "register": "Inscription",
+        "logout": "Déconnexion"
+    },
+    "nav": {
+        "home": "Accueil",
+        "pricing": "Tarifs",
+        "dashboard": "Tableau de bord",
+        "settings": "Paramètres",
+        "billing": "Facturation",
+        "profile": "Profil"
+    },
+    "home": {
+        "title": "Convertissez vos images en WebP & AVIF",
+        "subtitle": "Optimisation SEO automatique par IA",
+        "description": "Glissez-déposez vos images pour les convertir en formats modernes avec des métadonnées SEO générées automatiquement.",
+        "dropzone": {
+            "title": "Glissez vos images ici",
+            "subtitle": "ou cliquez pour sélectionner",
+            "formats": "PNG, JPG, JPEG, GIF, BMP, TIFF, WEBP",
+            "maxSize": "Max {{size}} MB par fichier"
+        },
+        "features": {
+            "conversion": "Conversion WebP/AVIF",
+            "seo": "SEO automatique",
+            "ai": "Métadonnées IA",
+            "fast": "Rapide & gratuit"
+        }
+    },
+    "convert": {
+        "title": "Paramètres de conversion",
+        "format": "Format de sortie",
+        "quality": "Qualité",
+        "qualityHint": "Plus la qualité est élevée, plus le fichier est lourd",
+        "maxWidth": "Largeur max",
+        "maxHeight": "Hauteur max",
+        "maintainRatio": "Conserver les proportions",
+        "keywords": "Mots-clés SEO",
+        "keywordsPlaceholder": "Ex: chaussures, running, sport",
+        "keywordsHint": "Ajoutez des mots-clés pour optimiser les noms de fichiers et le SEO",
+        "generateFavicons": "Générer les favicons & icônes app",
+        "removeBackground": "Supprimer l'arrière-plan",
+        "startConversion": "Lancer la conversion",
+        "converting": "Conversion en cours...",
+        "imagesSelected": "{{count}} image(s) sélectionnée(s)"
+    },
+    "result": {
+        "title": "Conversion terminée !",
+        "subtitle": "{{count}} image(s) convertie(s) avec succès",
+        "tabs": {
+            "download": "Télécharger",
+            "seo": "SEO",
+            "code": "Code",
+            "favicons": "Favicons",
+            "performance": "Performance"
+        },
+        "downloadAll": "Télécharger tout (ZIP)",
+        "selectImage": "Sélectionnez une image",
+        "newConversion": "Nouvelle conversion",
+        "backToSettings": "Paramètres"
+    },
+    "pricing": {
+        "title": "Tarifs simples et transparents",
+        "subtitle": "Commencez gratuitement, passez au Pro quand vous avez besoin de plus de puissance.",
+        "free": {
+            "name": "Gratuit",
+            "description": "Pour découvrir Eikonify",
+            "cta": "Commencer gratuitement"
+        },
+        "pro": {
+            "name": "Pro",
+            "description": "Pour les professionnels",
+            "cta": "Passer au Pro",
+            "ctaRegister": "S'inscrire et passer au Pro",
+            "recommended": "Recommandé",
+            "yourPlan": "Votre plan",
+            "active": "Abonnement actif",
+            "overage": "Au-delà de {{limit}} images, facturation à l'usage : {{price}}/image"
+        },
+        "features": {
+            "imagesPerDay": "{{count}} images par jour",
+            "imagesPerMonth": "{{count}} images par mois",
+            "bgRemovalPerDay": "{{count}} suppressions d'arrière-plan par jour",
+            "bgRemovalPerMonth": "{{count}} suppressions d'arrière-plan par mois",
+            "faviconPerDay": "{{count}} génération de favicons par jour",
+            "faviconUnlimited": "Favicons illimités (6 tailles)",
+            "conversionWebpAvif": "Conversion WebP/AVIF",
+            "basicSeo": "SEO basique (alt, title)",
+            "basicCode": "Code HTML basique",
+            "exportZipOnly": "Export ZIP uniquement",
+            "filesKept1h": "Fichiers conservés 1h",
+            "filesKept24h": "Fichiers conservés 24h",
+            "aiSuggestions": "Suggestions IA",
+            "advancedCode": "Code avancé (React, Vue, Next.js, CSS)",
+            "schemaMarkup": "Schema markup (JSON-LD, Open Graph)",
+            "performanceAnalysis": "Analyse de performance",
+            "blurHashLqip": "BlurHash/LQIP placeholders",
+            "responsiveImages": "Images responsive (variantes)",
+            "conversionHistory": "Historique des conversions",
+            "batchFiles": "{{count}} fichiers par lot",
+            "exportFormats": "Export CSV, JSON, HTML"
+        },
+        "securePayment": "Paiement sécurisé par Stripe. Vous pouvez annuler à tout moment.",
+        "alreadyRegistered": "Déjà inscrit ?",
+        "loginLink": "Connectez-vous"
+    },
+    "export": {
+        "title": "Exporter",
+        "format": "Format d'export",
+        "zip": "Archive ZIP",
+        "csv": "Fichier CSV",
+        "json": "Fichier JSON",
+        "html": "Code HTML"
+    },
+    "code": {
+        "title": "Génération de code",
+        "type": "Type de code",
+        "html": "HTML basique",
+        "picture": "HTML Picture",
+        "react": "React",
+        "vue": "Vue.js",
+        "nextjs": "Next.js",
+        "css": "CSS Background",
+        "lazy": "Lazy loading"
+    },
+    "favicon": {
+        "title": "Favicons & Icônes App",
+        "description": "Générez toutes les tailles de favicon pour votre site",
+        "generate": "Générer les favicons",
+        "generating": "Génération en cours...",
+        "downloadZip": "Télécharger le ZIP",
+        "copyHtml": "Copier le code HTML",
+        "sizes": {
+            "favicon16": "Favicon 16x16",
+            "favicon32": "Favicon 32x32",
+            "appleTouchIcon": "Apple Touch Icon",
+            "androidChrome192": "Android Chrome 192",
+            "androidChrome512": "Android Chrome 512",
+            "mstile": "MS Tile 150"
+        },
+        "tabs": {
+            "preview": "Aperçu",
+            "html": "Code HTML",
+            "manifest": "Manifest"
+        },
+        "quota": {
+            "remaining": "{{count}} restante(s) aujourd'hui",
+            "unlimited": "Illimité"
+        }
+    },
+    "performance": {
+        "title": "Analyse de performance",
+        "originalSize": "Taille originale",
+        "convertedSize": "Taille convertie",
+        "savings": "Économie",
+        "placeholder": {
+            "title": "Placeholders & Couleurs",
+            "description": "Utilisez ces données pour améliorer le chargement perçu",
+            "comparison": "Comparaison",
+            "viewOriginal": "Voir original",
+            "viewPlaceholder": "Voir placeholder",
+            "lqip": "LQIP (Low Quality Image Placeholder)",
+            "blurhash": "BlurHash",
+            "dominantColor": "Couleur dominante",
+            "colorPalette": "Palette de couleurs",
+            "transparency": "Transparence",
+            "aspectRatio": "Ratio"
+        }
+    },
+    "auth": {
+        "login": {
+            "title": "Connexion",
+            "email": "Email",
+            "password": "Mot de passe",
+            "rememberMe": "Se souvenir de moi",
+            "forgotPassword": "Mot de passe oublié ?",
+            "submit": "Se connecter",
+            "noAccount": "Pas encore de compte ?",
+            "registerLink": "Créer un compte"
+        },
+        "register": {
+            "title": "Créer un compte",
+            "name": "Nom",
+            "email": "Email",
+            "password": "Mot de passe",
+            "confirmPassword": "Confirmer le mot de passe",
+            "submit": "S'inscrire",
+            "hasAccount": "Déjà un compte ?",
+            "loginLink": "Se connecter"
+        },
+        "forgotPassword": {
+            "title": "Mot de passe oublié",
+            "description": "Entrez votre email pour recevoir un lien de réinitialisation.",
+            "submit": "Envoyer le lien",
+            "backToLogin": "Retour à la connexion"
+        }
+    },
+    "footer": {
+        "description": "Convertisseur d'images WebP/AVIF avec optimisation SEO automatique par IA.",
+        "legal": "Mentions légales",
+        "privacy": "Politique de confidentialité",
+        "terms": "CGU",
+        "termsOfSale": "CGV",
+        "contact": "Contact",
+        "copyright": "© {{year}} Eikonify. Tous droits réservés."
+    },
+    "errors": {
+        "generic": "Une erreur est survenue",
+        "notFound": "Page non trouvée",
+        "serverError": "Erreur serveur",
+        "maintenance": "Maintenance en cours",
+        "quotaExceeded": "Quota dépassé",
+        "invalidFile": "Fichier invalide",
+        "fileTooLarge": "Fichier trop volumineux",
+        "conversionFailed": "Échec de la conversion"
+    }
+}
