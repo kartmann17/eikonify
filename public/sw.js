@@ -1,6 +1,5 @@
-const CACHE_NAME = 'eikonify-v1';
+const CACHE_NAME = 'eikonify-v2';
 const STATIC_ASSETS = [
-    '/',
     '/manifest.json',
     '/favicon.ico',
     '/favicon.svg',
@@ -33,7 +32,7 @@ self.addEventListener('activate', (event) => {
     self.clients.claim();
 });
 
-// Fetch event - network first, fallback to cache
+// Fetch event - cache static assets only, NEVER cache HTML (Inertia pages contain auth state)
 self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
@@ -46,31 +45,13 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // For HTML pages - network first
+    // NEVER cache HTML pages - they contain Inertia props with auth state
+    // Let them always go to the network
     if (request.headers.get('accept')?.includes('text/html')) {
-        event.respondWith(
-            fetch(request)
-                .then((response) => {
-                    // Cache successful responses
-                    if (response.ok) {
-                        const clone = response.clone();
-                        caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(request, clone);
-                        });
-                    }
-                    return response;
-                })
-                .catch(() => {
-                    // Fallback to cache
-                    return caches.match(request).then((cached) => {
-                        return cached || caches.match('/');
-                    });
-                })
-        );
         return;
     }
 
-    // For static assets - cache first
+    // For static assets only - cache first
     if (
         url.pathname.startsWith('/build/') ||
         url.pathname.match(/\.(js|css|png|jpg|jpeg|webp|avif|svg|woff2?)$/)
