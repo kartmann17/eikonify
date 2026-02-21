@@ -56,7 +56,7 @@ export default function CGV() {
                     Au-dela du quota mensuel de 500 images, une facturation a l'usage s'applique :
                 </p>
                 <ul className="list-disc pl-6 space-y-2">
-                    <li>0,02 EUR par image supplementaire</li>
+                    <li>0,25 EUR par image supplementaire</li>
                 </ul>
                 <p className="mt-4">
                     Les prix sont indiques en euros et incluent toutes les taxes applicables (TVA). Batikko se reserve le droit de modifier ses prix a tout moment, les nouveaux prix s'appliquant a la prochaine periode de facturation.
