@@ -10,23 +10,35 @@ import type { Auth } from '@/types';
 const FREE_FEATURES = [
     { text: '5 images par jour', included: true },
     { text: '3 suppressions d\'arriere-plan par jour', included: true },
+    { text: '1 generation de favicons par jour', included: true },
     { text: 'Conversion WebP/AVIF', included: true },
-    { text: 'SEO basique', included: true },
+    { text: 'SEO basique (alt, title)', included: true },
+    { text: 'Code HTML basique (<picture>, <img>)', included: true },
     { text: 'Export ZIP uniquement', included: true },
     { text: 'Fichiers conserves 1h', included: true },
     { text: 'Suggestions IA', included: false },
+    { text: 'Code avance (React, Vue, Next.js, CSS)', included: false },
+    { text: 'Schema markup (JSON-LD, Open Graph)', included: false },
+    { text: 'Analyse de performance', included: false },
+    { text: 'BlurHash/LQIP placeholders', included: false },
+    { text: 'Images responsive (variantes)', included: false },
     { text: 'Historique des conversions', included: false },
 ];
 
 const PRO_FEATURES = [
     '500 images par mois',
     '500 suppressions d\'arriere-plan par mois',
+    'Favicons illimites (6 tailles)',
     '20 fichiers par lot',
     'Fichiers conserves 24h',
     'Suggestions de mots-cles IA',
+    'Code avance (React, Vue, Next.js, CSS, LQIP)',
+    'Schema markup (JSON-LD, Open Graph, Twitter Cards)',
+    'Analyse de performance detaillee',
+    'BlurHash/LQIP placeholders',
+    'Images responsive (5 variantes)',
     'Historique complet',
     'Export CSV, JSON, HTML',
-    'Support prioritaire',
 ];
 
 export default function Tarifs() {
@@ -116,7 +128,7 @@ export default function Tarifs() {
                             </ul>
 
                             <div className="text-xs text-muted-foreground border-t pt-4">
-                                Au-dela de 500 images, facturation a l'usage : 0,02 EUR/image
+                                Au-dela de 500 images, facturation a l'usage : 0,25 EUR/image
                             </div>
 
                             {isPro ? (

@@ -71,6 +71,14 @@ class ConvertedImage extends Model
     }
 
     /**
+     * Get the favicons generated from this image.
+     */
+    public function favicons(): HasMany
+    {
+        return $this->hasMany(ImageFavicon::class, 'image_id');
+    }
+
+    /**
      * Check if the image conversion is completed.
      */
     public function isCompleted(): bool

@@ -4,11 +4,11 @@ import { Button } from '@/components/ui/button';
 import { SeoHead, SEO_CONFIGS } from '@/components/seo-head';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ExportPanel, ImageCard, CodeGeneratorPanel, PerformancePanel, PlaceholderPreview, SchemaPreview } from '@/components/optiseo';
+import { ExportPanel, ImageCard, CodeGeneratorPanel, PerformancePanel, PlaceholderPreview, SchemaPreview, FaviconPanel } from '@/components/optiseo';
 import { useConversion } from '@/hooks/use-conversion';
 import type { ConversionBatch, ConvertedImage } from '@/types/optiseo';
 import type { Auth } from '@/types/auth';
-import { ArrowLeft, Home, RefreshCw, Code2, Gauge, Download, FileText } from 'lucide-react';
+import { ArrowLeft, Home, RefreshCw, Code2, Gauge, Download, FileText, ImageIcon } from 'lucide-react';
 
 interface ResultPageProps {
     batchId: string;
@@ -87,7 +87,7 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
 
                         {/* Main Tabs */}
                         <Tabs defaultValue="export" className="w-full">
-                            <TabsList className="grid w-full grid-cols-4">
+                            <TabsList className="grid w-full grid-cols-5">
                                 <TabsTrigger value="export" className="gap-2">
                                     <Download className="h-4 w-4" />
                                     <span className="hidden sm:inline">Télécharger</span>
@@ -99,6 +99,10 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                                 <TabsTrigger value="code" className="gap-2">
                                     <Code2 className="h-4 w-4" />
                                     <span className="hidden sm:inline">Code</span>
+                                </TabsTrigger>
+                                <TabsTrigger value="favicons" className="gap-2">
+                                    <ImageIcon className="h-4 w-4" />
+                                    <span className="hidden sm:inline">Favicons</span>
                                 </TabsTrigger>
                                 <TabsTrigger value="performance" className="gap-2">
                                     <Gauge className="h-4 w-4" />
@@ -262,6 +266,48 @@ export default function OptiseoResult({ batchId, initialBatch }: ResultPageProps
                                         {/* Code Generator Panel */}
                                         {displayImage && (
                                             <CodeGeneratorPanel image={displayImage} isPro={isPro} />
+                                        )}
+                                    </>
+                                )}
+                            </TabsContent>
+
+                            {/* Favicons Tab */}
+                            <TabsContent value="favicons" className="mt-6 space-y-6">
+                                {completedImages.length > 0 && (
+                                    <>
+                                        {/* Image Selector */}
+                                        {completedImages.length > 1 && (
+                                            <Card>
+                                                <CardHeader>
+                                                    <CardTitle className="text-base">Sélectionnez une image</CardTitle>
+                                                </CardHeader>
+                                                <CardContent>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {completedImages.map((image) => (
+                                                            <button
+                                                                key={image.id}
+                                                                onClick={() => setSelectedImage(image)}
+                                                                className={`relative overflow-hidden rounded-lg border-2 transition-all ${
+                                                                    (selectedImage?.id ?? completedImages[0]?.id) === image.id
+                                                                        ? 'border-primary ring-2 ring-primary ring-offset-2'
+                                                                        : 'border-muted hover:border-muted-foreground'
+                                                                }`}
+                                                            >
+                                                                <img
+                                                                    src={image.converted?.url ?? image.original.url ?? ''}
+                                                                    alt={image.seo.alt_text ?? ''}
+                                                                    className="h-16 w-16 object-cover"
+                                                                />
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </CardContent>
+                                            </Card>
+                                        )}
+
+                                        {/* Favicon Panel */}
+                                        {displayImage && (
+                                            <FaviconPanel image={displayImage} />
                                         )}
                                     </>
                                 )}

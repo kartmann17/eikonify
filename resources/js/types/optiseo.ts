@@ -12,6 +12,7 @@ export interface ConversionSettings {
     max_width?: number | null;
     max_height?: number | null;
     maintain_aspect_ratio: boolean;
+    generate_favicons?: boolean;
 }
 
 export interface SeoMetadata {
@@ -124,6 +125,21 @@ export interface ImageSchema {
     twitter_card_html: string;
 }
 
+// Favicon types
+export interface ImageFavicon {
+    id: string;
+    size_name: string;
+    size: number;
+    file_size: number;
+    url: string;
+}
+
+export interface FaviconUsage {
+    plan: 'free' | 'pro';
+    remaining: number | null;
+    limit: number | null;
+}
+
 export interface ConvertedImage {
     id: string;
     batch_id: string;
@@ -133,6 +149,7 @@ export interface ConvertedImage {
     seo: SeoMetadata;
     performance?: PerformanceMetadata;
     variants?: ImageVariant[];
+    favicons?: ImageFavicon[];
     compression_ratio: number | null;
     size_saved: number | null;
     error_message?: string;

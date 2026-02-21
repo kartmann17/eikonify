@@ -1,3 +1,4 @@
+import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,11 +11,13 @@ import {
 } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { cn } from '@/lib/utils';
-import type { ConversionSettings as ConversionSettingsType, OutputFormat } from '@/types/optiseo';
+import type { ConversionSettings as ConversionSettingsType, FaviconUsage, OutputFormat } from '@/types/optiseo';
+import { Image as ImageIcon } from 'lucide-react';
 
 interface ConversionSettingsProps {
     settings: ConversionSettingsType;
     onChange: (settings: ConversionSettingsType) => void;
+    faviconUsage?: FaviconUsage;
     disabled?: boolean;
     className?: string;
 }
@@ -22,6 +25,7 @@ interface ConversionSettingsProps {
 export function ConversionSettings({
     settings,
     onChange,
+    faviconUsage,
     disabled = false,
     className,
 }: ConversionSettingsProps) {
@@ -153,6 +157,39 @@ export function ConversionSettings({
                 </Label>
             </div>
 
+            {/* Generate Favicons */}
+            <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                    <Checkbox
+                        id="generate-favicons"
+                        checked={settings.generate_favicons ?? false}
+                        onCheckedChange={(checked) =>
+                            updateSetting('generate_favicons', checked as boolean)
+                        }
+                        disabled={disabled || (faviconUsage?.plan === 'free' && faviconUsage?.remaining === 0)}
+                    />
+                    <Label htmlFor="generate-favicons" className="cursor-pointer flex items-center gap-2">
+                        <ImageIcon className="h-4 w-4" />
+                        Générer les favicons & icônes app
+                    </Label>
+                    {faviconUsage?.plan === 'free' && (
+                        <Badge variant="outline" className="text-xs">
+                            {faviconUsage.remaining}/{faviconUsage.limit} restant
+                        </Badge>
+                    )}
+                    {faviconUsage?.plan === 'pro' && (
+                        <Badge variant="secondary" className="text-xs">
+                            Pro
+                        </Badge>
+                    )}
+                </div>
+                {settings.generate_favicons && (
+                    <p className="text-xs text-muted-foreground ml-6">
+                        Génère 6 tailles : 16×16, 32×32, 180×180 (Apple), 192×192 & 512×512 (Android), 150×150 (Windows)
+                    </p>
+                )}
+            </div>
+
             {/* Settings Summary */}
             <div className="rounded-lg border bg-muted/50 p-3 text-sm">
                 <p className="font-medium">Résumé des paramètres :</p>
@@ -164,6 +201,9 @@ export function ConversionSettings({
                             • Dimensions max : {settings.max_width || '∞'} × {settings.max_height || '∞'} px
                             {settings.maintain_aspect_ratio && ' (proportions conservées)'}
                         </li>
+                    )}
+                    {settings.generate_favicons && (
+                        <li>• Favicons : 6 tailles générées</li>
                     )}
                 </ul>
             </div>

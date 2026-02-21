@@ -5,6 +5,7 @@ export { CodeGeneratorPanel } from './code-generator-panel';
 export { ConversionSettings } from './conversion-settings';
 export { DropZone } from './drop-zone';
 export { ExportPanel } from './export-panel';
+export { FaviconPanel } from './favicon-panel';
 export { ImageCard } from './image-card';
 export { KeywordInput } from './keyword-input';
 export { PerformancePanel } from './performance-panel';
